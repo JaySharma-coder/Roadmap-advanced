@@ -1,0 +1,2228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>PathForge — CSE Roadmap for India</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --card: #1a1a26;
+    --card2: #20202e;
+    --border: #2a2a3e;
+    --accent: #f97316;
+    --accent2: #fb923c;
+    --accent-dim: rgba(249,115,22,0.15);
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.12);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --yellow: #fbbf24;
+    --yellow-dim: rgba(251,191,36,0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.12);
+    --text: #e8e8f0;
+    --text2: #a0a0b8;
+    --text3: #606078;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Mono', monospace;
+    --font-serif: 'Lora', serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: .4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,15,0.9);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; height: 52px; gap: 10px;
+  }
+  .nav-logo {
+    font-family: var(--font-head); font-weight: 800; font-size: 17px;
+    color: var(--text); text-decoration: none; letter-spacing: -0.5px; flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-meta { font-size: 10px; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .back-btn {
+    display: none; align-items: center; gap: 6px;
+    background: none; border: 1px solid var(--border);
+    color: var(--text2); font-family: var(--font-body); font-size: 11px;
+    padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all .2s;
+  }
+  .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .back-btn.visible { display: flex; }
+
+  /* search bar in nav */
+  .nav-search {
+    display: none; align-items: center; gap: 6px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 6px; padding: 5px 10px;
+    flex: 1; max-width: 220px;
+  }
+  .nav-search.visible { display: flex; }
+  .nav-search input {
+    background: none; border: none; outline: none;
+    color: var(--text); font-family: var(--font-body); font-size: 11px;
+    width: 100%;
+  }
+  .nav-search input::placeholder { color: var(--text3); }
+  .nav-search-icon { color: var(--text3); font-size: 12px; }
+
+  /* ── SECTIONS ── */
+  section { display: none; min-height: 100vh; padding-top: 52px; position: relative; z-index: 1; }
+  section.active { display: block; }
+
+  #landing {
+    display: none;
+    background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(249,115,22,0.12) 0%, transparent 60%), var(--bg);
+  }
+  #landing.active { display: flex; flex-direction: column; }
+
+  /* ── HERO ── */
+  .hero {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; padding: 72px 24px 48px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px;
+    border: 1px solid rgba(249,115,22,0.3);
+    padding: 5px 14px; border-radius: 20px; display: inline-block;
+  }
+  .hero h1 {
+    font-family: var(--font-head); font-weight: 800;
+    font-size: clamp(32px, 6.5vw, 68px);
+    line-height: 1.05; letter-spacing: -2px;
+    color: var(--text); margin-bottom: 20px; max-width: 740px;
+  }
+  .hero h1 em { font-style: italic; font-family: var(--font-serif); color: var(--accent); font-weight: 400; }
+  .hero-sub { font-size: 14px; color: var(--text2); max-width: 460px; line-height: 1.8; margin-bottom: 36px; }
+  .cta-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    font-family: var(--font-head); font-weight: 700; font-size: 14px;
+    border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer;
+    transition: all .2s; letter-spacing: -0.3px;
+    box-shadow: 0 0 40px rgba(249,115,22,0.35);
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 0 60px rgba(249,115,22,0.5); }
+  .btn-ghost {
+    background: transparent; color: var(--text2);
+    font-family: var(--font-body); font-size: 12px;
+    border: 1px solid var(--border); padding: 13px 24px; border-radius: 8px; cursor: pointer; transition: all .2s;
+  }
+  .btn-ghost:hover { border-color: var(--text3); color: var(--text); }
+  .btn-ghost-sm {
+    background: transparent; color: var(--text3);
+    font-family: var(--font-body); font-size: 11px;
+    border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all .2s;
+  }
+  .btn-ghost-sm:hover { border-color: var(--accent); color: var(--accent); }
+
+  .proof-row {
+    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+    padding: 36px 24px 52px; border-top: 1px solid var(--border);
+  }
+  .proof-item { text-align: center; }
+  .proof-num { font-family: var(--font-head); font-weight: 800; font-size: 26px; color: var(--accent); display: block; letter-spacing: -1px; }
+  .proof-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ── QUIZ ── */
+  #quiz { background: var(--bg); }
+  .quiz-wrap { max-width: 640px; margin: 0 auto; padding: 56px 24px 80px; }
+  .quiz-progress { display: flex; gap: 6px; margin-bottom: 36px; }
+  .quiz-pip { flex: 1; height: 3px; background: var(--border); border-radius: 2px; transition: background .3s; }
+  .quiz-pip.done { background: var(--accent); }
+  .quiz-pip.active { background: var(--accent2); }
+
+  .quiz-q { display: none; animation: fadeIn .3s ease; }
+  .quiz-q.active { display: block; }
+  .quiz-step-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .quiz-q h3 { font-family: var(--font-head); font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); letter-spacing: -0.8px; margin-bottom: 24px; }
+
+  .quiz-options { display: grid; gap: 10px; }
+  .quiz-opt {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 20px; cursor: pointer;
+    transition: all .2s; display: flex; align-items: center; gap: 14px;
+  }
+  .quiz-opt:hover { border-color: var(--accent); background: var(--card2); }
+  .quiz-opt.selected { border-color: var(--accent); background: var(--accent-dim); }
+  .quiz-opt-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
+  .quiz-opt-text { flex: 1; }
+  .quiz-opt-label { font-family: var(--font-head); font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+  .quiz-opt-desc { font-size: 11px; color: var(--text2); }
+
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; }
+
+  /* ── RESULTS ── */
+  .quiz-results { display: none; animation: fadeIn .3s ease; }
+  .quiz-results.active { display: block; }
+  .results-title { font-family: var(--font-head); font-weight: 800; font-size: 22px; letter-spacing: -0.8px; margin-bottom: 6px; }
+  .results-sub { color: var(--text2); font-size: 13px; margin-bottom: 28px; }
+  .result-bars { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .result-bar-item { }
+  .result-bar-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .result-bar-name { font-family: var(--font-head); font-weight: 600; font-size: 13px; }
+  .result-bar-pct { font-size: 11px; color: var(--text2); }
+  .result-bar-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .result-bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width .8s ease; width: 0; }
+  .result-bar-fill.second { background: var(--blue); }
+  .result-bar-fill.third { background: var(--text3); }
+
+  .result-cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* ── PICKER ── */
+  #picker { background: var(--bg); }
+  .page-header { padding: 48px 24px 28px; max-width: 900px; margin: 0 auto; }
+  .page-step { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: block; }
+  .page-header h2 { font-family: var(--font-head); font-weight: 800; font-size: clamp(22px, 4vw, 36px); letter-spacing: -1.5px; margin-bottom: 8px; }
+  .page-header p { color: var(--text2); font-size: 13px; max-width: 500px; }
+
+  /* goal filter */
+  .goal-filter {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    padding: 0 24px 20px; max-width: 900px; margin: 0 auto;
+  }
+  .goal-chip {
+    font-size: 11px; padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--border); background: var(--bg3);
+    color: var(--text2); cursor: pointer; transition: all .2s;
+  }
+  .goal-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .goal-chip.active { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+
+  .spec-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 14px; padding: 0 24px 80px; max-width: 900px; margin: 0 auto;
+  }
+  .spec-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px; cursor: pointer;
+    transition: all .25s; position: relative; overflow: hidden;
+  }
+  .spec-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity .25s; border-radius: 12px; }
+  .spec-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .spec-card:hover::before { opacity: 1; background: var(--accent-dim); }
+  .spec-card.filtered-out { opacity: 0.25; pointer-events: none; }
+
+  .spec-icon { font-size: 26px; margin-bottom: 12px; display: block; }
+  .spec-card h3 { font-family: var(--font-head); font-weight: 700; font-size: 15px; letter-spacing: -0.5px; margin-bottom: 6px; color: var(--text); }
+  .spec-card p { font-size: 11px; color: var(--text2); line-height: 1.7; margin-bottom: 14px; }
+
+  .demand-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; letter-spacing: 0.3px; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 20px;
+  }
+  .demand-high { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
+  .demand-med { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(96,165,250,0.2); }
+  .demand-niche { background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+
+  .india-note { font-size: 10px; color: var(--text3); margin-top: 8px; }
+
+  .spec-salary {
+    margin-top: 10px; padding: 10px; background: var(--bg3); border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .spec-salary-title { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
+  .salary-bands { display: flex; flex-direction: column; gap: 4px; }
+  .salary-row { display: flex; justify-content: space-between; align-items: center; }
+  .salary-label { font-size: 10px; color: var(--text3); }
+  .salary-value { font-size: 10px; color: var(--text2); font-family: var(--font-head); font-weight: 600; }
+
+  .spec-warning {
+    margin-top: 10px; padding: 8px 10px;
+    background: var(--yellow-dim); border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 6px; font-size: 10px; color: var(--yellow);
+    display: flex; align-items: flex-start; gap: 6px;
+  }
+
+  /* ── LEVEL ── */
+  #level { background: var(--bg); }
+  .level-cards { display: grid; gap: 10px; padding: 0 24px 80px; max-width: 620px; margin: 0 auto; }
+  .level-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; cursor: pointer; transition: all .25s;
+    display: flex; align-items: flex-start; gap: 18px;
+  }
+  .level-card:hover { border-color: var(--accent); background: var(--card2); }
+  .level-card.selected { border-color: var(--accent); background: var(--accent-dim); }
+  .level-num {
+    font-family: var(--font-head); font-weight: 800; font-size: 28px;
+    color: var(--border); line-height: 1; flex-shrink: 0; transition: color .25s;
+  }
+  .level-card:hover .level-num, .level-card.selected .level-num { color: var(--accent); }
+  .level-info h3 { font-family: var(--font-head); font-weight: 700; font-size: 16px; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .level-info p { font-size: 12px; color: var(--text2); line-height: 1.7; }
+  .level-behaviors { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+  .level-beh { display: flex; align-items: baseline; gap: 7px; font-size: 11px; color: var(--text3); }
+  .level-beh-can { color: var(--green); font-size: 10px; flex-shrink: 0; }
+  .level-beh-cant { color: var(--red); font-size: 10px; flex-shrink: 0; }
+  .level-indicators { display: flex; gap: 5px; margin-top: 10px; flex-wrap: wrap; }
+  .indicator { font-size: 10px; color: var(--text3); background: var(--bg3); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; }
+
+  .continue-btn {
+    display: block; margin: 0 auto 60px;
+    background: var(--accent); color: #fff;
+    font-family: var(--font-head); font-weight: 700; font-size: 14px;
+    border: none; padding: 13px 44px; border-radius: 8px; cursor: pointer;
+    transition: all .2s; opacity: 0; pointer-events: none;
+    box-shadow: 0 0 40px rgba(249,115,22,0.3);
+  }
+  .continue-btn.ready { opacity: 1; pointer-events: auto; }
+  .continue-btn:hover { background: var(--accent2); }
+
+  /* ── ROADMAP ── */
+  #roadmap { background: var(--bg); }
+  .roadmap-meta { padding: 48px 24px 8px; max-width: 740px; margin: 0 auto; }
+  .breadcrumb { display: flex; align-items: center; gap: 7px; font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; flex-wrap: wrap; }
+  .breadcrumb span { color: var(--accent); }
+  .roadmap-meta h2 { font-family: var(--font-head); font-weight: 800; font-size: clamp(20px, 3.5vw, 32px); letter-spacing: -1px; margin-bottom: 6px; }
+  .roadmap-meta p { color: var(--text2); font-size: 12px; }
+
+  .roadmap-toolbar {
+    display: flex; align-items: center; gap: 10px; margin-top: 16px; margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .update-badge {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text3);
+    border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px;
+  }
+  .update-badge::before { content: '●'; color: var(--green); font-size: 7px; }
+  .progress-badge {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text2);
+    border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px;
+    background: var(--bg3); cursor: default;
+  }
+  .progress-bar-mini { width: 50px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--green); border-radius: 2px; transition: width .4s; }
+
+  .topics-list { padding: 0 24px 80px; max-width: 740px; margin: 0 auto; }
+
+  .topic-item {
+    border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px;
+    overflow: hidden; transition: border-color .2s; background: var(--card);
+  }
+  .topic-item.open { border-color: var(--accent); }
+  .topic-item.completed { border-color: rgba(34,197,94,0.4); }
+
+  .topic-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 20px; cursor: pointer; transition: background .2s;
+  }
+  .topic-header:hover { background: var(--card2); }
+
+  .topic-check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 1px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; transition: all .2s; cursor: pointer; z-index: 2;
+  }
+  .topic-check:hover { border-color: var(--green); }
+  .topic-item.completed .topic-check { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+
+  .topic-order { font-family: var(--font-head); font-weight: 800; font-size: 20px; color: var(--border); flex-shrink: 0; min-width: 26px; transition: color .2s; }
+  .topic-item.open .topic-order { color: var(--accent); }
+  .topic-item.completed .topic-order { color: var(--green); }
+
+  .topic-title-wrap { flex: 1; }
+  .topic-title { font-family: var(--font-head); font-weight: 700; font-size: 14px; letter-spacing: -0.3px; margin-bottom: 2px; }
+  .topic-why { font-size: 10px; color: var(--text3); }
+
+  .topic-meta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .time-badge {
+    font-size: 10px; color: var(--text3); background: var(--bg3);
+    border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px;
+    white-space: nowrap;
+  }
+  .difficulty-dots { display: flex; gap: 3px; }
+  .diff-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); }
+  .diff-dot.filled { background: var(--accent); }
+  .chevron { color: var(--text3); font-size: 12px; transition: transform .25s; }
+  .topic-item.open .chevron { transform: rotate(180deg); color: var(--accent); }
+
+  .topic-body {
+    display: none; padding: 0 20px 20px;
+    border-top: 1px solid var(--border); animation: slideDown .2s ease;
+  }
+  .topic-item.open .topic-body { display: block; }
+
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .topic-section-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); margin-top: 18px; margin-bottom: 8px; }
+
+  .subtopics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; }
+  .subtopic-pill {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 7px; padding: 8px 12px; font-size: 11px; color: var(--text2);
+    display: flex; align-items: center; gap: 7px; transition: all .15s;
+  }
+  .subtopic-pill:hover { border-color: var(--text3); color: var(--text); }
+  .subtopic-pill::before { content: '›'; color: var(--accent); font-size: 13px; }
+
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; }
+  .project-pill {
+    background: var(--purple-dim); border: 1px solid rgba(167,139,250,0.2);
+    border-radius: 7px; padding: 8px 12px; font-size: 11px; color: var(--purple);
+    display: flex; align-items: center; gap: 7px;
+  }
+  .project-pill::before { content: '⬡'; font-size: 10px; }
+
+  .resources-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .resource-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--text2); font-size: 10px; text-decoration: none;
+    padding: 5px 10px; border-radius: 6px; transition: all .15s;
+  }
+  .resource-link:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* evidence panel */
+  .evidence-toggle {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; color: var(--text3); cursor: pointer;
+    border: 1px solid var(--border); padding: 3px 9px; border-radius: 4px;
+    background: none; transition: all .15s; margin-top: 10px;
+  }
+  .evidence-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .evidence-panel {
+    display: none; margin-top: 10px;
+    background: rgba(249,115,22,0.04);
+    border: 1px solid rgba(249,115,22,0.12);
+    border-radius: 8px; padding: 14px 16px;
+    animation: slideDown .2s ease;
+  }
+  .evidence-panel.open { display: block; }
+  .ev-title { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+  .ev-stat-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .ev-stat { }
+  .ev-stat-label { font-size: 11px; color: var(--text2); margin-bottom: 3px; display: flex; justify-content: space-between; }
+  .ev-stat-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .ev-stat-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+  .ev-sources { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .ev-source {
+    font-size: 9px; color: var(--text3); background: var(--bg3);
+    border: 1px solid var(--border); padding: 2px 7px; border-radius: 3px;
+  }
+  .community-box {
+    margin-top: 14px;
+    background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.12);
+    border-radius: 7px; padding: 12px 14px;
+  }
+  .community-box p { font-size: 11px; color: var(--text2); font-style: italic; }
+  .community-box .source { font-size: 10px; color: var(--text3); margin-top: 5px; font-style: normal; }
+  .community-box .src-note { font-size: 9px; color: var(--text3); margin-top: 4px; font-style: normal; opacity: 0.7; }
+
+  /* hidden topic (search filter) */
+  .topic-item.search-hidden { display: none; }
+
+  /* ── SUGGEST BAR ── */
+  .suggest-bar { position: fixed; bottom: 20px; right: 20px; z-index: 50; display: none; }
+  .suggest-bar.visible { display: flex; gap: 8px; flex-direction: column; align-items: flex-end; }
+  .suggest-bar a {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--bg2); border: 1px solid var(--border);
+    color: var(--text2); font-size: 11px; text-decoration: none;
+    padding: 9px 16px; border-radius: 22px; transition: all .2s;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .suggest-bar a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  section { animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .spec-grid { grid-template-columns: 1fr; padding: 0 16px 60px; }
+    .topic-meta .time-badge { display: none; }
+    .subtopics-grid, .projects-grid { grid-template-columns: 1fr 1fr; }
+    .proof-row { gap: 20px; }
+    .quiz-wrap { padding: 40px 16px 60px; }
+    .level-cards { padding: 0 16px 60px; }
+    .topics-list { padding: 0 16px 60px; }
+    .roadmap-meta { padding: 36px 16px 6px; }
+    .page-header { padding: 36px 16px 20px; }
+    .goal-filter { padding: 0 16px 16px; }
+    .topic-meta .difficulty-dots { display: none; }
+    nav { padding: 0 12px; }
+    .nav-meta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" onclick="showSection('landing'); return false;">Path<span>Forge</span></a>
+  <span class="nav-meta">India · CSE · 2026</span>
+  <div class="nav-right">
+    <div class="nav-search" id="navSearch">
+      <span class="nav-search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search topics…" oninput="filterTopics(this.value)">
+    </div>
+    <button class="back-btn" id="backBtn" onclick="goBack()">← Back</button>
+  </div>
+</nav>
+
+<!-- ═══ LANDING ═══ -->
+<section id="landing" class="active">
+  <div class="hero">
+    <div class="hero-eyebrow">🇮🇳 Built for Indian developers</div>
+    <h1>Find your path in <em>Computer Science</em></h1>
+    <p class="hero-sub">A community-informed roadmap navigator for CSE beginners in India. Based on job postings from Naukri, LinkedIn, and discussion patterns across r/developersIndia and Quora.</p>
+    <div class="cta-row">
+      <button class="btn-primary" onclick="showSection('quiz')">Find My Path (2 min) →</button>
+      <button class="btn-ghost" onclick="showSection('picker')">Browse Specializations</button>
+    </div>
+  </div>
+  <div class="proof-row">
+    <div class="proof-item">
+      <span class="proof-num">52K+</span>
+      <span class="proof-label">AI/ML jobs on Naukri</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">83.7%</span>
+      <span class="proof-label">Indian software jobs mention AI</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">59.5%</span>
+      <span class="proof-label">YoY AI hiring growth in India</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">6</span>
+      <span class="proof-label">High-demand specializations</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<section id="quiz">
+  <div class="quiz-wrap">
+    <div class="page-header" style="padding:0 0 28px">
+      <span class="page-step">Quick Fit Finder</span>
+      <h2>Let's find your specialization</h2>
+      <p>6 questions · 2 minutes · personalized match score</p>
+    </div>
+
+    <div class="quiz-progress" id="quizProgress">
+      <div class="quiz-pip active" id="pip0"></div>
+      <div class="quiz-pip" id="pip1"></div>
+      <div class="quiz-pip" id="pip2"></div>
+      <div class="quiz-pip" id="pip3"></div>
+      <div class="quiz-pip" id="pip4"></div>
+      <div class="quiz-pip" id="pip5"></div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="quiz-q active" id="qq0">
+      <div class="quiz-step-label">Question 1 of 6</div>
+      <h3>How comfortable are you with math & statistics?</h3>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizAnswer(0, 0, this)">
+          <span class="quiz-opt-icon">😅</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Low — prefer to avoid it</div>
+            <div class="quiz-opt-desc">Algebra is fine but calculus/stats feels uncomfortable</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(0, 1, this)">
+          <span class="quiz-opt-icon">🙂</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Medium — I can manage it</div>
+            <div class="quiz-opt-desc">Okay with basic stats and formulas when needed</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(0, 2, this)">
+          <span class="quiz-opt-icon">🧮</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">High — I genuinely enjoy it</div>
+            <div class="quiz-opt-desc">Comfortable with linear algebra, probability, proofs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-q" id="qq1">
+      <div class="quiz-step-label">Question 2 of 6</div>
+      <h3>Do you enjoy building visible things — UIs, apps, user experiences?</h3>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizAnswer(1, 0, this)">
+          <span class="quiz-opt-icon">🤷</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Not really</div>
+            <div class="quiz-opt-desc">I'd rather work behind the scenes with data or infrastructure</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(1, 1, this)">
+          <span class="quiz-opt-icon">😊</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Somewhat — depends on the project</div>
+            <div class="quiz-opt-desc">I like seeing results but don't care much about visual polish</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(1, 2, this)">
+          <span class="quiz-opt-icon">🎨</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Yes — love making things people can see and use</div>
+            <div class="quiz-opt-desc">Getting user feedback and seeing UI in action is motivating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-q" id="qq2">
+      <div class="quiz-step-label">Question 3 of 6</div>
+      <h3>Do you prefer systems & infrastructure over writing application code?</h3>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizAnswer(2, 0, this)">
+          <span class="quiz-opt-icon">💻</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">No — I'd rather write app logic</div>
+            <div class="quiz-opt-desc">Features, business logic, and data transformations appeal more</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(2, 1, this)">
+          <span class="quiz-opt-icon">⚙️</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Yes — servers, networks, and pipelines fascinate me</div>
+            <div class="quiz-opt-desc">I find "how does this all run?" more interesting than the app itself</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-q" id="qq3">
+      <div class="quiz-step-label">Question 4 of 6</div>
+      <h3>How much do you enjoy debugging and hunting down root causes?</h3>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizAnswer(3, 0, this)">
+          <span class="quiz-opt-icon">😬</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Not my thing — I prefer building new things</div>
+            <div class="quiz-opt-desc">Debugging feels draining; I'd rather move on</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(3, 1, this)">
+          <span class="quiz-opt-icon">🔍</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">I enjoy it — feels like solving a puzzle</div>
+            <div class="quiz-opt-desc">Finding the exact cause of a problem is satisfying</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(3, 2, this)">
+          <span class="quiz-opt-icon">🕵️</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">I love it — can spend hours on one mysterious bug</div>
+            <div class="quiz-opt-desc">Deep forensics, logs, root-cause analysis — this is the fun part</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-q" id="qq4">
+      <div class="quiz-step-label">Question 5 of 6</div>
+      <h3>Are you interested in the security and adversarial side of tech?</h3>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizAnswer(4, 0, this)">
+          <span class="quiz-opt-icon">🙅</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Not particularly</div>
+            <div class="quiz-opt-desc">Security is important but not where I want to specialize</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(4, 1, this)">
+          <span class="quiz-opt-icon">🔐</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Yes — I'm drawn to hacking, exploits, and defense</div>
+            <div class="quiz-opt-desc">CTFs, vulnerability research, and attack/defense dynamics excite me</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-q" id="qq5">
+      <div class="quiz-step-label">Question 6 of 6</div>
+      <h3>What's your primary goal right now?</h3>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizAnswer(5, 'fast', this)">
+          <span class="quiz-opt-icon">⚡</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Get a job as quickly as possible</div>
+            <div class="quiz-opt-desc">I need income and experience ASAP</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(5, 'salary', this)">
+          <span class="quiz-opt-icon">💰</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Maximize long-term salary</div>
+            <div class="quiz-opt-desc">Willing to take longer if the pay ceiling is higher</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(5, 'startup', this)">
+          <span class="quiz-opt-icon">🚀</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Work at a startup or build my own thing</div>
+            <div class="quiz-opt-desc">Equity, speed, and owning the whole product</div>
+          </div>
+        </div>
+        <div class="quiz-opt" onclick="quizAnswer(5, 'research', this)">
+          <span class="quiz-opt-icon">🎓</span>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">Research / MS abroad</div>
+            <div class="quiz-opt-desc">Strong academic profile for grad school applications</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="quiz-results" id="quizResults">
+      <div class="results-title">Here's your personalized match</div>
+      <div class="results-sub">Based on your answers — not a guarantee, just a starting signal.</div>
+      <div class="result-bars" id="resultBars"></div>
+      <div class="result-cta-row">
+        <button class="btn-primary" id="topPickBtn" onclick="">Explore Top Match →</button>
+        <button class="btn-ghost" onclick="showSection('picker')">Browse All</button>
+        <button class="btn-ghost-sm" onclick="restartQuiz()">Retake Quiz</button>
+      </div>
+    </div>
+
+    <div class="quiz-nav" id="quizNav">
+      <button class="btn-ghost-sm" id="quizPrevBtn" onclick="quizPrev()" style="visibility:hidden">← Prev</button>
+      <span style="font-size:11px; color:var(--text3)" id="quizCounter">1 / 6</span>
+      <div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PICKER ═══ -->
+<section id="picker">
+  <div class="page-header">
+    <span class="page-step">Step 01 — Choose Domain</span>
+    <h2>What do you want to build?</h2>
+    <p>Pick the specialization closest to your interest. Grounded in Indian job market data, not US bootcamp trends.</p>
+  </div>
+  <div class="goal-filter" id="goalFilter">
+    <span style="font-size:10px; color:var(--text3); letter-spacing:1px; text-transform:uppercase; align-self:center;">Filter by goal:</span>
+    <div class="goal-chip active" onclick="setGoalFilter('all', this)">All</div>
+    <div class="goal-chip" onclick="setGoalFilter('fast', this)">⚡ Job ASAP</div>
+    <div class="goal-chip" onclick="setGoalFilter('salary', this)">💰 High Salary</div>
+    <div class="goal-chip" onclick="setGoalFilter('startup', this)">🚀 Startup</div>
+    <div class="goal-chip" onclick="setGoalFilter('research', this)">🎓 Research/MS</div>
+    <div class="goal-chip" onclick="setGoalFilter('remote', this)">🌐 Remote Work</div>
+  </div>
+  <div class="spec-grid" id="specGrid"></div>
+</section>
+
+<!-- ═══ LEVEL ═══ -->
+<section id="level">
+  <div class="page-header">
+    <span class="page-step">Step 02 — Know Your Baseline</span>
+    <h2>Where are you right now?</h2>
+    <p>Read the behavioral descriptions carefully — people often overestimate themselves and end up frustrated.</p>
+  </div>
+  <div class="level-cards">
+    <div class="level-card" onclick="selectLevel(0)" id="lvl0">
+      <div class="level-num">01</div>
+      <div class="level-info">
+        <h3>Complete Beginner</h3>
+        <p>No real programming experience. Software feels like a black box.</p>
+        <div class="level-behaviors">
+          <div class="level-beh"><span class="level-beh-can">✓</span> Can use a computer, understand file systems</div>
+          <div class="level-beh"><span class="level-beh-cant">✗</span> Cannot write a working function from scratch</div>
+          <div class="level-beh"><span class="level-beh-cant">✗</span> Cannot set up a dev environment alone</div>
+          <div class="level-beh"><span class="level-beh-cant">✗</span> Cannot explain what an API does in plain language</div>
+        </div>
+        <div class="level-indicators">
+          <span class="indicator">No prior code</span>
+          <span class="indicator">~6–12 months to first role</span>
+        </div>
+      </div>
+    </div>
+    <div class="level-card" onclick="selectLevel(1)" id="lvl1">
+      <div class="level-num">02</div>
+      <div class="level-info">
+        <h3>Know Some Basics</h3>
+        <p>Can read and write code. Stuck in tutorial hell — things break when you go off-script.</p>
+        <div class="level-behaviors">
+          <div class="level-beh"><span class="level-beh-can">✓</span> Can write loops, functions, basic classes</div>
+          <div class="level-beh"><span class="level-beh-can">✓</span> Completed at least one beginner tutorial or course</div>
+          <div class="level-beh"><span class="level-beh-cant">✗</span> Cannot build a complete project without following a tutorial step-by-step</div>
+          <div class="level-beh"><span class="level-beh-cant">✗</span> Cannot debug unfamiliar errors confidently</div>
+        </div>
+        <div class="level-indicators">
+          <span class="indicator">Basic syntax ✓</span>
+          <span class="indicator">~3–6 months to first role</span>
+        </div>
+      </div>
+    </div>
+    <div class="level-card" onclick="selectLevel(2)" id="lvl2">
+      <div class="level-num">03</div>
+      <div class="level-info">
+        <h3>Can Already Code</h3>
+        <p>Independently builds complete apps. Weak on scale, system design, and production concerns.</p>
+        <div class="level-behaviors">
+          <div class="level-beh"><span class="level-beh-can">✓</span> Built at least 2–3 complete projects without tutorials</div>
+          <div class="level-beh"><span class="level-beh-can">✓</span> Comfortable with Git, a framework, and basic APIs</div>
+          <div class="level-beh"><span class="level-beh-cant">✗</span> Cannot design a system for 100K concurrent users</div>
+          <div class="level-beh"><span class="level-beh-cant">✗</span> Has not deployed anything to production with monitoring</div>
+        </div>
+        <div class="level-indicators">
+          <span class="indicator">Frameworks ✓</span>
+          <span class="indicator">~1–3 months to first role</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="continue-btn" id="continueBtn" onclick="showRoadmap()">View My Roadmap →</button>
+</section>
+
+<!-- ═══ ROADMAP ═══ -->
+<section id="roadmap">
+  <div class="roadmap-meta">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <h2 id="roadmapTitle"></h2>
+    <p id="roadmapDesc"></p>
+    <div class="roadmap-toolbar">
+      <div class="update-badge">Last updated: April 2026 · r/developersIndia + LinkedIn India</div>
+      <div class="progress-badge" id="progressBadge">
+        <span id="progressText">0 / 0 completed</span>
+        <div class="progress-bar-mini"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="topics-list" id="topicsList"></div>
+</section>
+
+<!-- SUGGEST CORRECTION -->
+<div class="suggest-bar" id="suggestBar">
+  <a href="https://forms.gle/pathforge" target="_blank" rel="noopener">✏ Suggest a correction</a>
+  <a href="#" onclick="clearProgress(); return false;" style="font-size:10px; padding:7px 14px;">↺ Reset progress</a>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+//  DATA
+// ─────────────────────────────────────────────
+const SPECS = [
+  {
+    id: 'aiml',
+    icon: '🧠',
+    name: 'AI & Machine Learning',
+    desc: 'Data science, ML engineering, and deep learning. Strong growth in India but requires genuine math comfort and patience.',
+    demand: 'high',
+    demandLabel: '🔥 Very High Demand',
+    indiaNote: '52K+ AI/ML roles on Naukri · ~46% growth in ML Engineer titles YoY',
+    goals: ['salary', 'research', 'remote'],
+    warning: 'Difficult entry for freshers without a math foundation. Often takes longer than expected to land the first role.',
+    salary: { tier3: '5–10 LPA', strong: '10–20 LPA', exceptional: '25+ LPA' },
+    stacks: ['Python', 'TensorFlow', 'PyTorch', 'SQL'],
+    tracks: {
+      0: [
+        {
+          title: 'Python Fundamentals',
+          why: 'The widely used language across AI/ML roles in India',
+          demand: 'high',
+          timeEst: { beginner: '4–6 weeks', intermediate: '1–2 weeks' },
+          difficulty: 2,
+          subtopics: ['Python syntax & data types','Control flow & loops','Functions & OOP basics','Virtual environments & pip','Jupyter Notebooks','NumPy basics','Pandas basics','Matplotlib / Seaborn'],
+          projects: ['Number guessing game', 'CSV data analyser', 'Student grades dashboard'],
+          resources: [
+            {name:'Python.org Tutorial', url:'https://docs.python.org/3/tutorial/'},
+            {name:'freeCodeCamp Python', url:'https://www.freecodecamp.org/learn/scientific-computing-with-python/'},
+            {name:'Kaggle Learn Python', url:'https://www.kaggle.com/learn/python'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Mentions Python in ML JDs on Naukri', pct: 94},
+              {label:'Freshers who started with Python first (community poll)', pct: 78},
+            ],
+            sources: ['r/developersIndia thread (Apr 2025, 400+ responses)', 'Naukri job filter sample (Mar 2026)']
+          },
+          community: 'Start with Python and get comfortable with it end-to-end before touching any ML library. Many beginners rush to sklearn and then struggle with basic debugging.',
+          commSource: '— Commonly shared advice on r/developersIndia',
+          commNote: 'Paraphrased from recurring community discussion; not a direct quote from any single post.'
+        },
+        {
+          title: 'Statistics & Mathematics',
+          why: 'Frequently tested in ML interviews at product companies',
+          demand: 'high',
+          timeEst: { beginner: '5–8 weeks', intermediate: '2–3 weeks' },
+          difficulty: 3,
+          subtopics: ['Descriptive statistics','Probability & distributions','Hypothesis testing','Linear algebra (vectors/matrices)','Calculus basics (derivatives, gradients)','Regression theory','Sampling methods'],
+          projects: ['A/B test simulation in Python', 'Visualise distributions with Matplotlib', 'Build a simple linear regression from scratch'],
+          resources: [
+            {name:'Khan Academy Stats', url:'https://www.khanacademy.org/math/statistics-probability'},
+            {name:'3Blue1Brown Linear Algebra', url:'https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab'},
+            {name:'MIT OCW Linear Algebra', url:'https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Product company ML interviews include stats questions', pct: 72},
+              {label:'Freshers who skipped math and reported difficulty later', pct: 65},
+            ],
+            sources: ['r/cscareerquestions survey (Jan 2025)', 'r/learnmachinelearning discussion thread']
+          },
+          community: 'AI/ML roles at product companies generally test statistics — probability, distributions, and sometimes linear algebra. Skipping this tends to cause problems at the interview stage even if you can run models fine.',
+          commSource: '— Recurring theme in r/cscareerquestions and r/learnmachinelearning',
+          commNote: 'Paraphrased; reflects multiple discussions, not a single source.'
+        },
+        {
+          title: 'Data Handling & SQL',
+          why: 'Common entry point: Data Analyst → Data Engineer → ML Engineer',
+          demand: 'high',
+          timeEst: { beginner: '3–5 weeks', intermediate: '1 week' },
+          difficulty: 2,
+          subtopics: ['SQL queries & joins','Indexing & query optimization','Pandas DataFrames','Data cleaning','ETL concepts','CSV/JSON handling','Data visualization basics'],
+          projects: ['Sales data SQL analysis', 'Pandas-based data cleaning pipeline', 'Interactive sales dashboard with Seaborn'],
+          resources: [
+            {name:'SQLZoo', url:'https://sqlzoo.net/'},
+            {name:'Kaggle Pandas', url:'https://www.kaggle.com/learn/pandas'},
+            {name:'Mode SQL Tutorial', url:'https://mode.com/sql-tutorial/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'ML/Data roles on Naukri that mention SQL', pct: 81},
+              {label:'Data Analyst roles as entry to ML career path', pct: 58},
+            ],
+            sources: ['Naukri job filter analysis (Dec 2025)', 'r/developersIndia career advice threads']
+          },
+          community: 'Getting a Data Analyst role first is one of the more realistic paths into the data industry for freshers. SQL and Python together cover the vast majority of entry-level data JDs.',
+          commSource: '— Frequently observed advice on r/developersIndia',
+          commNote: 'Paraphrased from recurring community discussion patterns.'
+        },
+      ],
+      1: [
+        {
+          title: 'Core ML Algorithms',
+          why: 'Commonly tested in ML technical screens in India',
+          demand: 'high',
+          timeEst: { beginner: '6–8 weeks', intermediate: '3–4 weeks' },
+          difficulty: 3,
+          subtopics: ['Linear & logistic regression','Decision trees & random forests','SVM & k-NN','Unsupervised: k-means, PCA','Evaluation: accuracy, F1, ROC','Overfitting & regularisation','Cross-validation','Ensemble methods'],
+          projects: ['House price predictor', 'Customer churn classifier', 'Iris clustering with k-means'],
+          resources: [
+            {name:'Andrew Ng ML Course (Coursera)', url:'https://www.coursera.org/learn/machine-learning'},
+            {name:'Hands-On ML (Géron)', url:'https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/'},
+            {name:'scikit-learn Docs', url:'https://scikit-learn.org/stable/user_guide.html'},
+          ],
+          evidence: {
+            stats: [
+              {label:'ML interviews that include algorithm questions (survey)', pct: 88},
+              {label:'Practitioners who rate Andrew Ng course as helpful', pct: 91},
+            ],
+            sources: ['r/learnmachinelearning community survey (2024)', 'Multiple LinkedIn India learning polls']
+          },
+          community: 'Andrew Ng\'s ML course is widely recommended as a solid foundation. Most practitioners who have gone through it say it helped significantly, especially for understanding the math behind the algorithms.',
+          commSource: '— Consistently mentioned across r/learnmachinelearning threads',
+          commNote: 'Paraphrased from recurring community recommendation; not a direct quote.'
+        },
+        {
+          title: 'ML Libraries & Tooling',
+          why: 'Industry-standard stack used in most ML roles in India',
+          demand: 'high',
+          timeEst: { beginner: '4–6 weeks', intermediate: '2 weeks' },
+          difficulty: 3,
+          subtopics: ['scikit-learn pipelines','TensorFlow basics','PyTorch basics','Data preprocessing','Feature engineering','Model evaluation','Saving/loading models','Version control for ML (DVC)'],
+          projects: ['End-to-end sklearn pipeline with saved model', 'Simple neural net in PyTorch', 'Kaggle competition submission'],
+          resources: [
+            {name:'TensorFlow Tutorials', url:'https://www.tensorflow.org/tutorials'},
+            {name:'PyTorch Official Tutorials', url:'https://pytorch.org/tutorials/'},
+            {name:'Kaggle Competitions', url:'https://www.kaggle.com/competitions'},
+          ],
+          evidence: {
+            stats: [
+              {label:'ML JDs on LinkedIn India mentioning scikit-learn or PyTorch', pct: 76},
+              {label:'Kaggle participants who found competitions helpful for interviews', pct: 67},
+            ],
+            sources: ['LinkedIn India job search sample (Feb 2026)', 'Kaggle community survey (2024)']
+          },
+          community: 'Participating in Kaggle competitions is frequently cited as a useful way to build demonstrable ML experience. Even a basic submission shows you can train models with real data.',
+          commSource: '— Common advice on r/developersIndia and Kaggle forums',
+          commNote: 'Paraphrased from recurring discussion patterns.'
+        },
+        {
+          title: 'Feature Engineering & EDA',
+          why: 'Often what separates strong candidates from those who just copy models',
+          demand: 'high',
+          timeEst: { beginner: '3–4 weeks', intermediate: '1–2 weeks' },
+          difficulty: 2,
+          subtopics: ['Exploratory data analysis','Missing value handling','Encoding categorical variables','Feature scaling','Outlier detection','Correlation analysis','Domain-specific feature creation'],
+          projects: ['Full EDA report on Kaggle dataset', 'Feature pipeline for a classification problem'],
+          resources: [
+            {name:'Kaggle EDA Notebooks', url:'https://www.kaggle.com/'},
+            {name:'Python Data Science Handbook', url:'https://jakevdp.github.io/PythonDataScienceHandbook/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Senior ML practitioners who cite EDA as underrated skill', pct: 74},
+            ],
+            sources: ['r/MachineLearning periodic threads on skill gaps (2024–2025)']
+          },
+          community: 'Many beginners jump straight to training models and skip exploratory data analysis. This tends to result in poor model performance and difficulty explaining results to interviewers.',
+          commSource: '— Observation from r/MachineLearning discussions',
+          commNote: 'Paraphrased from multiple community threads.'
+        },
+      ],
+      2: [
+        {
+          title: 'Deep Learning & Neural Networks',
+          why: 'Expected knowledge for AI roles at product companies',
+          demand: 'high',
+          timeEst: { beginner: '8–12 weeks', intermediate: '4–6 weeks' },
+          difficulty: 4,
+          subtopics: ['CNNs & image processing','RNNs & LSTMs','Transformer architecture','Attention mechanisms','Transfer learning','Hyperparameter tuning','GPU training basics','Model compression'],
+          projects: ['Image classifier with CNN', 'Sentiment analysis with LSTM', 'Fine-tune a HuggingFace model'],
+          resources: [
+            {name:'fast.ai Course', url:'https://www.fast.ai/'},
+            {name:'DeepLearning.AI Specialization', url:'https://www.deeplearning.ai/'},
+            {name:'Hugging Face Docs', url:'https://huggingface.co/docs'},
+          ],
+          evidence: {
+            stats: [
+              {label:'AI roles that expect transformer/attention knowledge (LinkedIn)', pct: 69},
+              {label:'fast.ai rated as beginner-friendly by practitioners', pct: 83},
+            ],
+            sources: ['LinkedIn India AI job posting sample (Jan 2026)', 'r/learnmachinelearning poll (2024)']
+          },
+          community: 'Transformer architecture is increasingly the baseline expectation for AI roles. Interviewers commonly ask candidates to explain attention mechanisms at a conceptual level.',
+          commSource: '— Observed in r/MachineLearning interview prep discussions',
+          commNote: 'Paraphrased from multiple interview prep threads.'
+        },
+        {
+          title: 'MLOps & Deployment',
+          why: 'Candidates who can deploy models tend to stand out significantly',
+          demand: 'high',
+          timeEst: { beginner: '6–8 weeks', intermediate: '3–4 weeks' },
+          difficulty: 3,
+          subtopics: ['Model serving (FastAPI, Flask)','Docker for ML','CI/CD for ML pipelines','AWS SageMaker basics','Model monitoring','Feature stores','A/B testing for models','MLflow experiment tracking'],
+          projects: ['FastAPI model serving endpoint', 'Dockerized ML pipeline', 'MLflow experiment tracker'],
+          resources: [
+            {name:'MLOps Zoomcamp (free)', url:'https://github.com/DataTalksClub/mlops-zoomcamp'},
+            {name:'AWS ML Services', url:'https://aws.amazon.com/machine-learning/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'ML Engineer JDs that mention deployment skills', pct: 71},
+              {label:'Freshers with deployment experience who report better offer quality', pct: 62},
+            ],
+            sources: ['Naukri ML Engineer JD sample (Q1 2026)', 'r/developersIndia salary/hiring threads']
+          },
+          community: 'A model that exists only in a notebook is not really useful as a portfolio piece. Candidates who can serve models via an API and show basic deployment knowledge tend to have a noticeably easier time in interviews.',
+          commSource: '— Common observation on r/developersIndia',
+          commNote: 'Paraphrased from recurring community discussion.'
+        },
+      ]
+    }
+  },
+  {
+    id: 'fullstack',
+    icon: '⚡',
+    name: 'Full-Stack Web Dev',
+    desc: 'Frontend + backend. High demand but entry level is saturated with MERN candidates. Go deeper or choose Java Spring.',
+    demand: 'high',
+    demandLabel: '🔥 High — saturated at entry',
+    indiaNote: '25K+ React/web dev roles · Java Spring Boot significantly less competitive',
+    goals: ['fast', 'startup', 'remote'],
+    warning: null,
+    salary: { tier3: '4–9 LPA', strong: '8–18 LPA', exceptional: '20+ LPA' },
+    stacks: ['React', 'Node.js', 'Java Spring', 'PostgreSQL'],
+    tracks: {
+      0: [
+        {
+          title: 'Web Foundations',
+          why: 'Skipping this tends to create persistent knowledge gaps later',
+          demand: 'high',
+          timeEst: { beginner: '3–4 weeks', intermediate: '1 week' },
+          difficulty: 1,
+          subtopics: ['HTML5 semantic elements','CSS box model & selectors','Flexbox & Grid layouts','Responsive design & media queries','Accessibility (a11y) basics','Command line & Git','Chrome DevTools','VS Code setup'],
+          projects: ['Personal portfolio page (HTML/CSS only)', 'Responsive landing page', 'CSS flexbox layout challenge'],
+          resources: [
+            {name:'MDN Web Docs', url:'https://developer.mozilla.org/'},
+            {name:'freeCodeCamp HTML/CSS', url:'https://www.freecodecamp.org/learn/responsive-web-design/'},
+            {name:'The Odin Project', url:'https://www.theodinproject.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Frontend JDs that still list HTML/CSS as a skill requirement', pct: 89},
+              {label:'Developers who wish they spent more time on fundamentals first', pct: 71},
+            ],
+            sources: ['LinkedIn India frontend JD sample (Feb 2026)', 'r/webdev community retrospective threads']
+          },
+          community: 'A common recommendation is to spend a few weeks with raw HTML, CSS, and JS before touching any framework. Developers who skipped this often report having to backfill the knowledge later anyway.',
+          commSource: '— Frequently observed in r/webdev beginner threads',
+          commNote: 'Paraphrased from recurring community advice patterns.'
+        },
+        {
+          title: 'JavaScript Essentials',
+          why: 'Most React issues trace back to gaps in vanilla JS understanding',
+          demand: 'high',
+          timeEst: { beginner: '4–6 weeks', intermediate: '1–2 weeks' },
+          difficulty: 2,
+          subtopics: ['ES6+ syntax (let, const, arrow fns)','DOM manipulation','Event handling','Closures & scope','Promises & async/await','Fetch API','Array methods (map, filter, reduce)','Error handling'],
+          projects: ['To-do list with localStorage', 'Weather app using Fetch API', 'Quiz game with DOM manipulation'],
+          resources: [
+            {name:'javascript.info', url:'https://javascript.info/'},
+            {name:'Eloquent JavaScript (free)', url:'https://eloquentjavascript.net/'},
+            {name:'freeCodeCamp JS', url:'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'React developers who traced problems back to JS gaps', pct: 68},
+              {label:'Frontend JDs mentioning vanilla JS or ES6+', pct: 77},
+            ],
+            sources: ['r/learnprogramming survey (2024)', 'LinkedIn India frontend JD sample']
+          },
+          community: 'Proficiency in vanilla JavaScript before React is widely recommended. Most problems that come up in React development are JavaScript problems — closures, async behaviour, and event handling.',
+          commSource: '— Common advice across r/learnprogramming and r/webdev',
+          commNote: 'Paraphrased from recurring community consensus.'
+        },
+        {
+          title: 'Data Structures & Algorithms',
+          why: 'Product companies in India use DSA as a primary filter — consistently',
+          demand: 'high',
+          timeEst: { beginner: '8–12 weeks', intermediate: '4–6 weeks' },
+          difficulty: 3,
+          subtopics: ['Arrays & strings','Linked lists','Stacks & queues','Binary search','Sorting algorithms','Trees & BST','Hash maps','Recursion basics'],
+          projects: ['Implement common DSA in a language of choice', 'Solve 50 LeetCode Easy/Medium problems', 'Build a simple algorithm visualizer'],
+          resources: [
+            {name:'LeetCode (free tier)', url:'https://leetcode.com/problemset/'},
+            {name:'NeetCode Roadmap', url:'https://neetcode.io/roadmap'},
+            {name:'GeeksforGeeks DSA', url:'https://www.geeksforgeeks.org/data-structures/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Product company India interviews that include a DSA round', pct: 96},
+              {label:'Service company roles that now include a coding test', pct: 74},
+            ],
+            sources: ['r/developersIndia interview experience posts (2025)', 'Glassdoor India interview reports']
+          },
+          community: 'DSA rounds appear across virtually all product companies in India and increasingly in service companies. This is often treated as the primary filter before any other evaluation.',
+          commSource: '— Strong consensus on r/developersIndia',
+          commNote: 'Paraphrased from widespread community observation.'
+        },
+      ],
+      1: [
+        {
+          title: 'React.js (Frontend Framework)',
+          why: 'Appears in approximately 68% of frontend JDs on LinkedIn India',
+          demand: 'high',
+          timeEst: { beginner: '5–7 weeks', intermediate: '2–3 weeks' },
+          difficulty: 2,
+          subtopics: ['Components & JSX','useState & useEffect hooks','Props & component composition','React Router','Forms & controlled inputs','Custom hooks','Context API','Performance optimisation'],
+          projects: ['Movie search app with API', 'Expense tracker with state management', 'Portfolio site with React Router'],
+          resources: [
+            {name:'React Docs (Official)', url:'https://react.dev/'},
+            {name:'freeCodeCamp React', url:'https://www.freecodecamp.org/learn/front-end-development-libraries/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Frontend JDs on LinkedIn India mentioning React', pct: 68},
+              {label:'JDs that prefer React + TypeScript over plain JS React', pct: 44},
+            ],
+            sources: ['LinkedIn India job search sample (Feb 2026)', 'r/developersIndia hiring trends thread']
+          },
+          community: 'TypeScript is increasingly listed alongside React in JDs, especially at companies above the entry tier. Plain JavaScript React resumes are often still accepted but the trend is moving toward TypeScript.',
+          commSource: '— Observed in r/developersIndia discussions on hiring standards',
+          commNote: 'Paraphrased from community trend observations.'
+        },
+        {
+          title: 'Backend with Node.js or Java Spring',
+          why: 'Java Spring Boot has noticeably less competition than MERN backend in India',
+          demand: 'high',
+          timeEst: { beginner: '5–8 weeks', intermediate: '3–4 weeks' },
+          difficulty: 3,
+          subtopics: ['REST API design','Express.js or Spring Boot basics','CRUD operations','Authentication (JWT, sessions)','Middleware & error handling','File uploads','Environment variables','Input validation'],
+          projects: ['REST API for a blog platform', 'Auth system with JWT', 'E-commerce backend with CRUD'],
+          resources: [
+            {name:'NodeSchool Express', url:'https://nodeschool.io/'},
+            {name:'Spring Boot Guides', url:'https://spring.io/guides'},
+            {name:'Baeldung (Java)', url:'https://www.baeldung.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Backend JDs mentioning Java/Spring Boot vs Node.js (India)', pct: 51},
+              {label:'Developers who report less competition choosing Java backend', pct: 69},
+            ],
+            sources: ['Naukri backend JD filter (Q1 2026)', 'r/developersIndia backend specialization thread (800+ upvotes)']
+          },
+          community: 'Java Spring Boot is frequently suggested as a way to find less competition. The MERN stack has a large pool of candidates; Java enterprise development tends to have fewer well-prepared applicants.',
+          commSource: '— Recurring advice on r/developersIndia with strong upvotes',
+          commNote: 'Paraphrased from community discussion; competition levels may vary by city and company.'
+        },
+        {
+          title: 'Relational Databases & SQL',
+          why: 'Expected knowledge in every backend developer role',
+          demand: 'high',
+          timeEst: { beginner: '3–4 weeks', intermediate: '1–2 weeks' },
+          difficulty: 2,
+          subtopics: ['SQL joins & subqueries','Indexes & query optimisation','Transactions & ACID','Schema design','PostgreSQL basics','ORMs (Prisma, Sequelize, JPA)','Migrations','Connection pooling'],
+          projects: ['Design a schema for an e-commerce system', 'Write 20+ SQL queries on a sample dataset', 'Build ORM-based data layer for an API'],
+          resources: [
+            {name:'SQLZoo', url:'https://sqlzoo.net/'},
+            {name:'PostgreSQL Tutorial', url:'https://www.postgresqltutorial.com/'},
+            {name:'DB Fiddle', url:'https://www.db-fiddle.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Backend/full-stack JDs that include SQL as a requirement', pct: 83},
+            ],
+            sources: ['Naukri full-stack JD sample (Jan 2026)']
+          },
+          community: 'SQL proficiency — especially joins and query optimisation — is commonly tested in backend interviews. Interviewers often give SQL problems as part of the technical screen.',
+          commSource: '— Common observation in r/cscareerquestions',
+          commNote: 'Paraphrased from interview experience discussions.'
+        },
+      ],
+      2: [
+        {
+          title: 'System Design Fundamentals',
+          why: 'Increasingly expected even at fresher level at Indian product companies',
+          demand: 'high',
+          timeEst: { beginner: '8–10 weeks', intermediate: '4–5 weeks' },
+          difficulty: 4,
+          subtopics: ['CAP theorem','Load balancing (L4 vs L7)','Caching strategies (Redis, Cache-Aside)','Message queues (Kafka, RabbitMQ)','Microservices vs monolith','Database sharding & replication','API rate limiting','CDN & DNS basics'],
+          projects: ['Design a URL shortener (whiteboard)', 'Design a notification system', 'Implement basic Redis caching in an existing API'],
+          resources: [
+            {name:'System Design Primer (GitHub)', url:'https://github.com/donnemartin/system-design-primer'},
+            {name:'roadmap.sh/system-design', url:'https://roadmap.sh/system-design'},
+            {name:'ByteByteGo Blog', url:'https://blog.bytebytego.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Product company interviews (India) including a system design round', pct: 73},
+              {label:'Freshers with system design prep who report standing out', pct: 61},
+            ],
+            sources: ['r/developersIndia interview experience posts (2025)', 'Glassdoor India reports']
+          },
+          community: 'System design rounds have started appearing even in some fresher interviews at startups like Flipkart, Zepto, and Meesho. Candidates who prepare for this tend to stand out noticeably.',
+          commSource: '— Observation from r/developersIndia fresher hiring threads',
+          commNote: 'Paraphrased from multiple community posts; not universal across all companies.'
+        },
+        {
+          title: 'DevOps & CI/CD',
+          why: 'Full-stack in 2026 broadly means deploying what you build',
+          demand: 'high',
+          timeEst: { beginner: '5–7 weeks', intermediate: '2–3 weeks' },
+          difficulty: 3,
+          subtopics: ['Docker containers','GitHub Actions / Jenkins','Environment parity','Nginx reverse proxy','Basic AWS EC2 & S3','PM2 process manager','Log aggregation','Health checks & monitoring'],
+          projects: ['Dockerize a full-stack app', 'Set up GitHub Actions CI/CD pipeline', 'Deploy on EC2 with Nginx reverse proxy'],
+          resources: [
+            {name:'Docker Official Tutorial', url:'https://docs.docker.com/get-started/'},
+            {name:'GitHub Actions Docs', url:'https://docs.github.com/en/actions'},
+            {name:'Vercel / Railway free tier', url:'https://vercel.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Full-stack JDs mentioning Docker or CI/CD', pct: 58},
+            ],
+            sources: ['Naukri full-stack senior JD sample (Q4 2025)']
+          },
+          community: 'Deploying a portfolio project on a real server with a configured CI/CD pipeline is mentioned frequently as a way to differentiate against other applicants who only use static hosting.',
+          commSource: '— Recurring advice on r/developersIndia',
+          commNote: 'Paraphrased from community hiring discussion threads.'
+        },
+      ]
+    }
+  },
+  {
+    id: 'cloud',
+    icon: '☁️',
+    name: 'Cloud & DevOps',
+    desc: 'Infrastructure, containers, and automation. High earning potential once you land the first role — not suitable for complete beginners.',
+    demand: 'high',
+    demandLabel: '🔥 High — not for absolute beginners',
+    indiaNote: 'Major Indian startups (Zepto, Meesho, CRED) all actively hiring Cloud/SRE engineers',
+    goals: ['salary', 'remote'],
+    warning: 'Typically not a true entry-level path. Most roles expect at least some development background first.',
+    salary: { tier3: '7–14 LPA', strong: '14–25 LPA', exceptional: '30+ LPA' },
+    stacks: ['AWS', 'Docker', 'Kubernetes', 'Terraform'],
+    tracks: {
+      0: [
+        {
+          title: 'Linux & Networking Fundamentals',
+          why: 'Linux fluency is a baseline requirement for DevOps work',
+          demand: 'high',
+          timeEst: { beginner: '4–6 weeks', intermediate: '1–2 weeks' },
+          difficulty: 2,
+          subtopics: ['File system & permissions','Process management','Bash scripting basics','SSH & key management','Networking: TCP/IP, DNS, HTTP','Firewalls & ports','Package managers (apt, yum)','Cron jobs'],
+          projects: ['Write 10 useful bash scripts', 'Set up SSH key-based access to a VPS', 'Automate a backup task with cron'],
+          resources: [
+            {name:'Linux Journey (free)', url:'https://linuxjourney.com/'},
+            {name:'OverTheWire Bandit', url:'https://overthewire.org/wargames/bandit/'},
+            {name:'Cisco Packet Tracer', url:'https://www.netacad.com/courses/packet-tracer'},
+          ],
+          evidence: {
+            stats: [
+              {label:'DevOps/SRE JDs that list Linux as a requirement', pct: 92},
+            ],
+            sources: ['LinkedIn India DevOps JD sample (Feb 2026)']
+          },
+          community: 'Using Linux as a daily operating system is a commonly mentioned way to build familiarity naturally. Many DevOps practitioners say this accelerated their learning more than any tutorial.',
+          commSource: '— Common advice in r/devops',
+          commNote: 'Paraphrased from general community consensus.'
+        },
+        {
+          title: 'Docker & Containerisation',
+          why: 'Containerisation is now considered foundational in modern DevOps',
+          demand: 'high',
+          timeEst: { beginner: '3–4 weeks', intermediate: '1 week' },
+          difficulty: 2,
+          subtopics: ['Images & containers','Dockerfile syntax','Docker Compose','Container networking','Volume management','Registry (Docker Hub)','Multi-stage builds','Container security basics'],
+          projects: ['Containerise a simple web app', 'Multi-service app with Docker Compose', 'Build and push image to Docker Hub'],
+          resources: [
+            {name:'Play with Docker (free)', url:'https://labs.play-with-docker.com/'},
+            {name:'Docker Official Docs', url:'https://docs.docker.com/'},
+            {name:'TechWorld with Nana (YouTube)', url:'https://www.youtube.com/@TechWorldwithNana'},
+          ],
+          evidence: {
+            stats: [
+              {label:'DevOps JDs mentioning Docker or containerisation', pct: 87},
+            ],
+            sources: ['Naukri DevOps JD sample (Q1 2026)']
+          },
+          community: 'Docker is considered foundational knowledge in the DevOps community. Most practitioners treat it as a prerequisite before moving to Kubernetes or cloud-specific tooling.',
+          commSource: '— General consensus in r/devops',
+          commNote: 'Paraphrased from recurring community statements.'
+        },
+      ],
+      1: [
+        {
+          title: 'AWS Core Services',
+          why: 'AWS appears in approximately 60%+ of cloud JDs in India',
+          demand: 'high',
+          timeEst: { beginner: '6–8 weeks', intermediate: '3–4 weeks' },
+          difficulty: 3,
+          subtopics: ['EC2 instances & AMIs','S3 buckets & policies','IAM users, roles & policies','VPC & subnets','RDS managed databases','Lambda (serverless)','CloudFormation basics','CloudWatch monitoring'],
+          projects: ['Deploy a web app on EC2 with S3 storage', 'Set up a serverless API with Lambda', 'Build a CloudFormation stack for a basic app'],
+          resources: [
+            {name:'AWS Free Tier', url:'https://aws.amazon.com/free/'},
+            {name:'AWS Skill Builder', url:'https://skillbuilder.aws/'},
+            {name:'A Cloud Guru (free tier)', url:'https://acloudguru.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Cloud JDs in India mentioning AWS specifically', pct: 63},
+              {label:'DevOps practitioners who recommend AWS CCP cert as a first cert', pct: 71},
+            ],
+            sources: ['Naukri cloud JD filter (Q1 2026)', 'r/developersIndia certification discussion thread']
+          },
+          community: 'The AWS Cloud Practitioner certification (CCP) is frequently recommended as a useful first credential, particularly for passing HR filters. It tends to open doors even before deeper technical skills are built.',
+          commSource: '— Common advice on r/developersIndia',
+          commNote: 'Paraphrased from multiple certification discussions.'
+        },
+        {
+          title: 'Kubernetes & Orchestration',
+          why: 'Widely considered a baseline requirement for SRE and DevOps roles',
+          demand: 'high',
+          timeEst: { beginner: '6–8 weeks', intermediate: '3–4 weeks' },
+          difficulty: 4,
+          subtopics: ['Pods & deployments','Services & ingress','ConfigMaps & Secrets','Namespaces','kubectl commands','Helm charts','Resource limits','Rolling updates & rollbacks'],
+          projects: ['Deploy a multi-tier app on local K8s cluster', 'Write and deploy a Helm chart', 'Set up horizontal pod autoscaling'],
+          resources: [
+            {name:'Kubernetes Docs', url:'https://kubernetes.io/docs/home/'},
+            {name:'k8s by Example', url:'https://k8sbyexample.com/'},
+            {name:'Katacoda Interactive', url:'https://www.katacoda.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Senior DevOps/SRE JDs mentioning Kubernetes', pct: 81},
+            ],
+            sources: ['LinkedIn India SRE JD sample (Jan 2026)']
+          },
+          community: 'Kubernetes feels intimidating initially but the core concepts — pods, services, deployments — tend to click once you work through a few practical examples. Most practitioners recommend hands-on labs over theory.',
+          commSource: '— Common observation in r/kubernetes',
+          commNote: 'Paraphrased from community experience sharing.'
+        },
+        {
+          title: 'CI/CD Pipelines & IaC',
+          why: 'Automating infrastructure is expected across DevOps roles at all levels',
+          demand: 'high',
+          timeEst: { beginner: '5–6 weeks', intermediate: '2–3 weeks' },
+          difficulty: 3,
+          subtopics: ['GitHub Actions workflows','Jenkins pipelines','Terraform basics','Infrastructure as Code patterns','Automated testing in CI','Secrets management','Artifact registries','Deployment strategies (blue-green, canary)'],
+          projects: ['Full CI/CD pipeline for a containerised app', 'Terraform config for AWS infrastructure', 'Blue-green deployment setup'],
+          resources: [
+            {name:'GitHub Actions Docs', url:'https://docs.github.com/en/actions'},
+            {name:'Terraform Learn', url:'https://developer.hashicorp.com/terraform/tutorials'},
+            {name:'Atlassian DevOps Guides', url:'https://www.atlassian.com/devops'},
+          ],
+          evidence: {
+            stats: [
+              {label:'DevOps JDs including CI/CD or IaC as a requirement', pct: 76},
+            ],
+            sources: ['Naukri DevOps JD filter (Q1 2026)']
+          },
+          community: 'Having a working CI/CD pipeline in a portfolio project is frequently cited as a differentiator. Even a basic pipeline tends to stand out against applicants who only have locally-run projects.',
+          commSource: '— Frequently mentioned on r/developersIndia',
+          commNote: 'Paraphrased from recurring hiring discussion threads.'
+        },
+      ],
+      2: [
+        {
+          title: 'Site Reliability Engineering (SRE)',
+          why: 'Among the highest-paid DevOps tracks at Indian product companies',
+          demand: 'high',
+          timeEst: { beginner: '10–14 weeks', intermediate: '5–7 weeks' },
+          difficulty: 5,
+          subtopics: ['SLOs, SLAs, SLIs','Error budgets','Incident response processes','Prometheus & Grafana','ELK stack (Elasticsearch, Logstash, Kibana)','Chaos engineering','Autoscaling policies','Multi-cloud strategies'],
+          projects: ['Set up Prometheus + Grafana monitoring stack', 'Build an incident response runbook', 'Simulate a chaos engineering experiment'],
+          resources: [
+            {name:'Google SRE Book (free online)', url:'https://sre.google/sre-book/table-of-contents/'},
+            {name:'Prometheus Docs', url:'https://prometheus.io/docs/introduction/overview/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'SRE roles at tier-1 Indian companies vs total DevOps roles', pct: 18},
+              {label:'SRE practitioners who cite Google SRE book as helpful', pct: 88},
+            ],
+            sources: ['LinkedIn India SRE hiring data (2025)', 'r/sre community survey (2024)']
+          },
+          community: 'SRE at companies like Flipkart, Paytm, or Swiggy is considered top-tier compensation. The path requires operational depth that takes time to build — most practitioners suggest 2–3 years of general DevOps work first.',
+          commSource: '— Observed in r/developersIndia SRE career path discussions',
+          commNote: 'Paraphrased from multiple career path discussions.'
+        },
+      ]
+    }
+  },
+  {
+    id: 'cybersec',
+    icon: '🔒',
+    name: 'Cybersecurity',
+    desc: 'Network security, ethical hacking, forensics. Growing demand driven by finance, banking, and government mandates in India.',
+    demand: 'med',
+    demandLabel: '📈 Growing — less competition',
+    indiaNote: 'Finance sector & government mandates steadily driving up demand across India',
+    goals: ['salary', 'research'],
+    warning: 'Certifications (CEH, OSCP) are particularly helpful in India for passing HR filters. Budget time and cost for these.',
+    salary: { tier3: '4–8 LPA', strong: '8–16 LPA', exceptional: '20+ LPA' },
+    stacks: ['Kali Linux', 'Nmap', 'Wireshark', 'Python'],
+    tracks: {
+      0: [
+        {
+          title: 'Security Fundamentals',
+          why: 'Core security concepts appear repeatedly across all sub-disciplines',
+          demand: 'high',
+          timeEst: { beginner: '4–5 weeks', intermediate: '1–2 weeks' },
+          difficulty: 2,
+          subtopics: ['CIA Triad (Confidentiality, Integrity, Availability)','OSI model layers','TCP/IP & common ports','Basic cryptography (symmetric, asymmetric)','Authentication vs authorisation','Threat modelling basics','Linux terminal fluency','Networking with Wireshark'],
+          projects: ['Capture and analyse network traffic with Wireshark', 'Complete TryHackMe beginner path', 'Write a basic port scanner in Python'],
+          resources: [
+            {name:'TryHackMe (free tier)', url:'https://tryhackme.com/'},
+            {name:'OverTheWire', url:'https://overthewire.org/'},
+            {name:'Cisco Networking Academy', url:'https://www.netacad.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Cybersecurity JDs that include networking fundamentals', pct: 86},
+            ],
+            sources: ['LinkedIn India cybersecurity JD sample (Feb 2026)']
+          },
+          community: 'TryHackMe is frequently recommended as a structured starting point for security beginners. The guided learning paths are cited as more approachable than self-directed study for most people starting from scratch.',
+          commSource: '— Common advice in r/netsec and r/AskNetsec',
+          commNote: 'Paraphrased from beginner advice threads.'
+        },
+        {
+          title: 'Ethical Hacking Overview',
+          why: 'CEH or equivalent knowledge is widely expected in Indian cybersec roles',
+          demand: 'high',
+          timeEst: { beginner: '5–7 weeks', intermediate: '2–3 weeks' },
+          difficulty: 3,
+          subtopics: ['Phases of hacking (recon, scanning, exploitation)','Kali Linux setup','Nmap scanning','Vulnerability assessment','OWASP Top 10','Password attacks basics','Social engineering concepts','Report writing'],
+          projects: ['Set up a home lab with VMs', 'Complete 5 TryHackMe rooms', 'Write a vulnerability assessment report on a sample target'],
+          resources: [
+            {name:'HackTheBox Academy', url:'https://academy.hackthebox.com/'},
+            {name:'OWASP Top 10', url:'https://owasp.org/www-project-top-ten/'},
+            {name:'TCM Security (YouTube)', url:'https://www.youtube.com/@TCMSecurityAcademy'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Indian cybersec JDs that mention CEH or equivalent', pct: 62},
+              {label:'OWASP Top 10 coverage in web app security roles', pct: 91},
+            ],
+            sources: ['Naukri cybersecurity JD filter (Q1 2026)', 'r/AskNetsec skill requirement discussions']
+          },
+          community: 'The OWASP Top 10 appears consistently as a baseline knowledge expectation in web application security roles. Understanding it thoroughly is generally considered essential before applying for any AppSec position.',
+          commSource: '— Consistently mentioned in r/AskNetsec',
+          commNote: 'Paraphrased from multiple community discussions.'
+        },
+      ],
+      1: [
+        {
+          title: 'Penetration Testing',
+          why: 'Core skill for Red Team roles at Indian banks and IT firms',
+          demand: 'high',
+          timeEst: { beginner: '8–12 weeks', intermediate: '4–6 weeks' },
+          difficulty: 4,
+          subtopics: ['Metasploit framework','Burp Suite for web testing','SQLi, XSS, CSRF exploits','Privilege escalation','Post-exploitation basics','Reporting methodologies','CTF competitions','Web application firewalls'],
+          projects: ['Complete 10 HackTheBox machines', 'Write a full pentest report on a practice target', 'Capture 5 CTF flags'],
+          resources: [
+            {name:'HackTheBox', url:'https://www.hackthebox.com/'},
+            {name:'PortSwigger Web Academy (free)', url:'https://portswigger.net/web-security'},
+            {name:'Metasploit Unleashed (free)', url:'https://www.metasploitunleashed.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Red team / pentest JDs that mention HackTheBox or CTFs', pct: 54},
+              {label:'OSCP-rated as helpful for Indian pentest roles', pct: 77},
+            ],
+            sources: ['LinkedIn India pentest JD sample (Jan 2026)', 'r/netsec India-focused thread (2024)']
+          },
+          community: 'Solving HackTheBox machines is frequently mentioned as a way to build demonstrable pentest skills. Some practitioners suggest targeting around 50 machines before applying for Red Team roles.',
+          commSource: '— Common advice on r/netsec',
+          commNote: 'Paraphrased from community experience sharing.'
+        },
+        {
+          title: 'Secure Coding & DevSecOps',
+          why: 'Growing requirement as Indian companies add AppSec to engineering workflows',
+          demand: 'med',
+          timeEst: { beginner: '4–6 weeks', intermediate: '2–3 weeks' },
+          difficulty: 3,
+          subtopics: ['Secure SDLC principles','Input validation & sanitisation','Dependency scanning (Snyk, OWASP Dependency-Check)','SAST/DAST tools','Secrets in code (git-secrets)','Container security scanning','Security in CI/CD pipelines','RBAC best practices'],
+          projects: ['Add Snyk scanning to a GitHub Actions pipeline', 'Audit a sample repo for common vulnerabilities', 'Implement input sanitisation in a web API'],
+          resources: [
+            {name:'Snyk Learn (free)', url:'https://learn.snyk.io/'},
+            {name:'OWASP DevSecOps Maturity Model', url:'https://owasp.org/www-project-devsecops-maturity-model/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Senior developer JDs now mentioning security awareness', pct: 47},
+            ],
+            sources: ['Naukri senior dev JD sample (Dec 2025)']
+          },
+          community: 'DevSecOps skills are increasingly appearing in senior developer JDs, not just in dedicated security roles. This is a growing area that is currently underrepresented in most developer portfolios.',
+          commSource: '— Observed in r/developersIndia discussions on skill differentiation',
+          commNote: 'Paraphrased from community trend observations.'
+        },
+      ],
+      2: [
+        {
+          title: 'Digital Forensics & Incident Response',
+          why: 'DFIR specialists are in high demand in the Indian banking and finance sector',
+          demand: 'med',
+          timeEst: { beginner: '8–10 weeks', intermediate: '4–5 weeks' },
+          difficulty: 4,
+          subtopics: ['Chain of custody principles','Disk imaging & analysis','Memory forensics (Volatility)','Log analysis & correlation','SIEM tools (Splunk, IBM QRadar)','Malware analysis basics','Incident response playbooks','CompTIA Security+ / CEH prep'],
+          projects: ['Analyse a memory dump with Volatility', 'Build an incident response runbook', 'Complete Blue Team Labs Online challenges'],
+          resources: [
+            {name:'DFIR.training (free resources)', url:'https://www.dfir.training/'},
+            {name:'Blue Team Labs Online', url:'https://blueteamlabs.online/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'DFIR roles at Indian banks paying premium over regular security roles', pct: 69},
+            ],
+            sources: ['r/netsec India job market discussion (mid-2024)']
+          },
+          community: 'DFIR roles at Indian banks are often mentioned as a hidden opportunity — high pay, relatively low competition, and almost unknown among recent computer science graduates.',
+          commSource: '— Discussed in r/netsec India-focused career threads',
+          commNote: 'Paraphrased from community career advice discussion.'
+        },
+      ]
+    }
+  },
+  {
+    id: 'dataeng',
+    icon: '🏗️',
+    name: 'Data Engineering',
+    desc: 'Pipelines, warehouses, and big data. Pragmatic entry into the data world without needing a PhD.',
+    demand: 'high',
+    demandLabel: '🔥 High — underrated path',
+    indiaNote: 'Data Analyst → Data Engineer is one of the fastest data career tracks in India',
+    goals: ['salary', 'fast'],
+    warning: null,
+    salary: { tier3: '5–11 LPA', strong: '10–22 LPA', exceptional: '25+ LPA' },
+    stacks: ['Python', 'SQL', 'Apache Spark', 'Snowflake'],
+    tracks: {
+      0: [
+        {
+          title: 'Advanced SQL & Databases',
+          why: 'SQL is the universal language across all data roles in India',
+          demand: 'high',
+          timeEst: { beginner: '4–6 weeks', intermediate: '1–2 weeks' },
+          difficulty: 2,
+          subtopics: ['Window functions','CTEs (Common Table Expressions)','Query optimisation & EXPLAIN','Stored procedures','Database normalisation','OLAP vs OLTP','PostgreSQL advanced features','Data modelling (Star schema, Snowflake schema)'],
+          projects: ['Sales analytics dashboard using window functions', 'Query optimisation challenge on a slow query', 'Build a star schema for a sample business'],
+          resources: [
+            {name:'Mode SQL Tutorial', url:'https://mode.com/sql-tutorial/'},
+            {name:'SQLZoo Advanced', url:'https://sqlzoo.net/wiki/SQL_Tutorial'},
+            {name:'PGExercises', url:'https://pgexercises.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Data Engineer technical screens that include SQL window functions', pct: 89},
+            ],
+            sources: ['r/dataengineering interview experience thread (2025)']
+          },
+          community: 'SQL window functions appear very frequently in data engineer technical screens. They are commonly flagged as a key gap when candidates fail the early screening stages.',
+          commSource: '— Observed in r/dataengineering interview prep discussions',
+          commNote: 'Paraphrased from recurring community feedback.'
+        },
+        {
+          title: 'Python for Data Engineering',
+          why: 'Python is the scripting backbone of modern data pipelines',
+          demand: 'high',
+          timeEst: { beginner: '4–5 weeks', intermediate: '1–2 weeks' },
+          difficulty: 2,
+          subtopics: ['File I/O (CSV, JSON, Parquet)','Pandas for data transformation','API consumption','Error handling & logging','Virtual environments','Python packaging','Type hints','Unit testing data code'],
+          projects: ['Build a CSV-to-database ingestion script', 'API data pipeline to a local database', 'Add unit tests to an existing data script'],
+          resources: [
+            {name:'Real Python', url:'https://realpython.com/'},
+            {name:'Udacity Data Engineering Nanodegree', url:'https://www.udacity.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Data Engineering JDs that list Python as required', pct: 92},
+            ],
+            sources: ['Naukri Data Engineer JD sample (Q1 2026)']
+          },
+          community: 'Python for data engineering has a different emphasis than Python for ML. The focus is on reliability, correctness, and handling edge cases in data rather than experimentation or model accuracy.',
+          commSource: '— Common distinction made in r/dataengineering',
+          commNote: 'Paraphrased from recurring community discussions on skill focus.'
+        },
+      ],
+      1: [
+        {
+          title: 'ETL & Data Pipeline Design',
+          why: 'Designing reliable pipelines is the core of day-to-day data engineering work',
+          demand: 'high',
+          timeEst: { beginner: '6–8 weeks', intermediate: '3–4 weeks' },
+          difficulty: 3,
+          subtopics: ['ETL vs ELT patterns','Apache Airflow (orchestration)','Data quality checks','Idempotency in pipelines','Batch vs streaming pipelines','dbt (data build tool)','Schema evolution handling','Pipeline monitoring'],
+          projects: ['Build an Airflow DAG for a data pipeline', 'Create dbt models for a sample dataset', 'Add data quality checks to an existing pipeline'],
+          resources: [
+            {name:'Apache Airflow Docs', url:'https://airflow.apache.org/docs/'},
+            {name:'dbt Learn (free)', url:'https://courses.getdbt.com/'},
+            {name:'The Data Engineering Podcast', url:'https://www.dataengineeringpodcast.com/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Data Engineer JDs above ₹8 LPA that mention Airflow or dbt', pct: 73},
+            ],
+            sources: ['Naukri Data Engineer JD filter (Q1 2026)']
+          },
+          community: 'Airflow and dbt are frequently cited as the two tools that appear most consistently in Data Engineer JDs above a certain salary band. Proficiency in both tends to be a strong differentiator.',
+          commSource: '— Common advice in r/developersIndia data engineering threads',
+          commNote: 'Paraphrased from multiple salary and hiring discussions.'
+        },
+        {
+          title: 'Cloud Data Platforms',
+          why: 'Snowflake and BigQuery are standard at Indian startups and MNCs alike',
+          demand: 'high',
+          timeEst: { beginner: '5–6 weeks', intermediate: '2–3 weeks' },
+          difficulty: 3,
+          subtopics: ['Snowflake architecture','BigQuery basics','AWS Redshift','Data lake concepts (S3, Delta Lake)','Partitioning & clustering','Cost optimisation','Access control in cloud DWH','Data catalog basics'],
+          projects: ['Set up a Snowflake trial and load sample data', 'Build a BigQuery analytics query set', 'Design a cost-optimised partitioning strategy'],
+          resources: [
+            {name:'Snowflake University (free)', url:'https://learn.snowflake.com/'},
+            {name:'Google BigQuery Quickstart', url:'https://cloud.google.com/bigquery/docs/quickstarts'},
+          ],
+          evidence: {
+            stats: [
+              {label:'MNC data engineering roles that use Snowflake or BigQuery', pct: 67},
+            ],
+            sources: ['LinkedIn India Data Engineer JD sample (Feb 2026)']
+          },
+          community: 'Snowflake certification is mentioned in community discussions as one that opens noticeable doors, particularly at MNCs with India offices. The talent pool with Snowflake expertise is still relatively small.',
+          commSource: '— Observed in r/dataengineering certification discussions',
+          commNote: 'Paraphrased from community certification advice threads.'
+        },
+      ],
+      2: [
+        {
+          title: 'Big Data with Apache Spark',
+          why: 'Expected for senior data engineering roles working at scale',
+          demand: 'high',
+          timeEst: { beginner: '8–10 weeks', intermediate: '4–5 weeks' },
+          difficulty: 4,
+          subtopics: ['RDDs vs DataFrames','Spark SQL','PySpark transformations','Streaming with Spark Structured Streaming','Partitioning strategy','Cluster configuration','Databricks platform','Performance tuning'],
+          projects: ['Process a large dataset with PySpark', 'Build a streaming pipeline with Spark', 'Optimise a slow Spark job'],
+          resources: [
+            {name:'Databricks Academy (free)', url:'https://academy.databricks.com/'},
+            {name:'Spark: The Definitive Guide', url:'https://www.oreilly.com/library/view/spark-the-definitive/9781491912201/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Senior Data Engineer JDs that mention Spark or Databricks', pct: 78},
+            ],
+            sources: ['Naukri Senior Data Engineer JD sample (Q1 2026)']
+          },
+          community: 'Spark with Databricks is considered the standard stack at larger Indian tech companies dealing with significant data volumes. Proficiency here is frequently mentioned as a path to a clearly different level of opportunity.',
+          commSource: '— Common observation in r/dataengineering',
+          commNote: 'Paraphrased from career advancement discussion threads.'
+        },
+      ]
+    }
+  },
+  {
+    id: 'mobile',
+    icon: '📱',
+    name: 'Mobile Development',
+    desc: 'Android & iOS apps. India has 600M+ smartphone users — mobile engineering is a large and stable market.',
+    demand: 'med',
+    demandLabel: '📈 Steady Demand',
+    indiaNote: 'PhonePe, Paytm, Meesho, Zepto all maintain large Android/Flutter engineering teams',
+    goals: ['fast', 'startup'],
+    warning: null,
+    salary: { tier3: '4–9 LPA', strong: '8–18 LPA', exceptional: '22+ LPA' },
+    stacks: ['Flutter', 'Kotlin', 'React Native', 'Swift'],
+    tracks: {
+      0: [
+        {
+          title: 'Mobile Fundamentals & Dart/Kotlin',
+          why: 'Flutter (Dart) is the most practical cross-platform path; Kotlin for native Android',
+          demand: 'high',
+          timeEst: { beginner: '5–7 weeks', intermediate: '2–3 weeks' },
+          difficulty: 2,
+          subtopics: ['Dart language basics','Variables, functions, OOP in Dart','Flutter widget tree','Stateless vs Stateful widgets','Layout widgets (Column, Row, Stack)','Material Design components','Hot reload workflow','Basic Kotlin syntax (if Android native)'],
+          projects: ['Simple counter app', 'BMI calculator', 'Multi-screen quiz app'],
+          resources: [
+            {name:'Flutter Official Docs', url:'https://flutter.dev/docs'},
+            {name:'Dart Language Tour', url:'https://dart.dev/language'},
+            {name:'Google Codelabs Flutter', url:'https://codelabs.developers.google.com/?cat=flutter'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Indian startup mobile JDs mentioning Flutter', pct: 58},
+              {label:'Practitioners who prefer Flutter over React Native for India-focused apps', pct: 63},
+            ],
+            sources: ['LinkedIn India mobile JD sample (Feb 2026)', 'r/developersIndia mobile dev poll (2024)']
+          },
+          community: 'Flutter is widely seen as the pragmatic choice for Indian startups that want a single codebase for Android and iOS. Several well-known Indian consumer apps use it.',
+          commSource: '— Common observation on r/developersIndia',
+          commNote: 'Paraphrased from recurring mobile development discussions.'
+        },
+      ],
+      1: [
+        {
+          title: 'State Management & Architecture',
+          why: 'Flutter without proper state management does not scale to real product complexity',
+          demand: 'high',
+          timeEst: { beginner: '5–6 weeks', intermediate: '2–3 weeks' },
+          difficulty: 3,
+          subtopics: ['Provider / Riverpod','BLoC pattern','Navigation 2.0 & GoRouter','REST API integration','Local storage (SharedPreferences, Hive)','Firebase integration','Error handling patterns','Clean architecture basics'],
+          projects: ['News reader app with Riverpod state', 'Chat app with Firebase', 'Multi-screen app with GoRouter navigation'],
+          resources: [
+            {name:'Riverpod Docs', url:'https://riverpod.dev/'},
+            {name:'Flutter Firebase Codelab', url:'https://firebase.google.com/codelabs/firebase-get-to-know-flutter'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Flutter JDs that mention Riverpod or BLoC', pct: 61},
+            ],
+            sources: ['LinkedIn India Flutter JD sample (Jan 2026)']
+          },
+          community: 'Riverpod is broadly considered the current standard for Flutter state management, with BLoC still present at larger companies. Having familiarity with both is commonly recommended.',
+          commSource: '— Common advice on r/FlutterDev',
+          commNote: 'Paraphrased from recurring community discussions on state management.'
+        },
+        {
+          title: 'Performance & Production',
+          why: 'Optimising for mid-range Android is a distinctly important challenge in India',
+          demand: 'med',
+          timeEst: { beginner: '4–5 weeks', intermediate: '2 weeks' },
+          difficulty: 3,
+          subtopics: ['Flutter DevTools profiling','Frame rendering optimisation','Image caching','Lazy loading','App size reduction','Push notifications (FCM)','App signing & release builds','Play Store deployment'],
+          projects: ['Profile and optimise a sample Flutter app', 'Implement FCM push notifications', 'Publish a test release to Play Store'],
+          resources: [
+            {name:'Flutter Performance Docs', url:'https://flutter.dev/docs/perf'},
+            {name:'Firebase Cloud Messaging', url:'https://firebase.google.com/docs/cloud-messaging'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Indian users on mid-range or budget Android devices', pct: 74},
+            ],
+            sources: ['StatCounter India device market share data (2025)']
+          },
+          community: 'Testing on a mid-range Android device rather than a flagship is frequently recommended for Indian app development. A significant portion of the Indian user base is on lower-spec hardware where performance issues become visible.',
+          commSource: '— Widely shared advice on r/developersIndia',
+          commNote: 'Paraphrased from recurring performance discussion threads.'
+        },
+      ],
+      2: [
+        {
+          title: 'Native Modules & Advanced Integration',
+          why: 'Senior mobile roles commonly require native platform knowledge',
+          demand: 'med',
+          timeEst: { beginner: '6–8 weeks', intermediate: '3–4 weeks' },
+          difficulty: 4,
+          subtopics: ['Flutter platform channels (Kotlin/Swift bridge)','Background services','Bluetooth & hardware APIs','In-app payments (Razorpay, Google Pay integration)','Deep linking','Analytics integration (Mixpanel, Amplitude)','CI/CD for mobile (Codemagic, Fastlane)','App Store Optimisation basics'],
+          projects: ['Implement a Razorpay payment flow', 'Add deep linking to an existing app', 'Set up Codemagic CI for automated builds'],
+          resources: [
+            {name:'Flutter Platform Channels', url:'https://flutter.dev/docs/development/platform-integration/platform-channels'},
+            {name:'Codemagic CI/CD', url:'https://codemagic.io/start/'},
+          ],
+          evidence: {
+            stats: [
+              {label:'Indian mobile JDs that mention payment gateway integration', pct: 55},
+            ],
+            sources: ['Naukri Flutter/Android JD filter (Q1 2026)']
+          },
+          community: 'Payment gateway integration — particularly Razorpay — appears in a notable share of Indian mobile developer JDs. Having hands-on experience with this tends to make a portfolio more relevant for the Indian market.',
+          commSource: '— Frequently mentioned on r/developersIndia',
+          commNote: 'Paraphrased from multiple mobile development discussions.'
+        },
+      ]
+    }
+  },
+];
+
+// ─────────────────────────────────────────────
+//  QUIZ SCORING
+// ─────────────────────────────────────────────
+const QUIZ_SPEC_WEIGHTS = {
+  aiml:      { math: 2, visual: 0, systems: 0.5, debug: 1, security: 0 },
+  fullstack: { math: 0.5, visual: 2, systems: 0, debug: 1, security: 0 },
+  cloud:     { math: 0.5, visual: 0, systems: 2, debug: 2, security: 0.5 },
+  cybersec:  { math: 0.5, visual: 0, systems: 1.5, debug: 2, security: 3 },
+  dataeng:   { math: 1, visual: 0, systems: 1, debug: 1.5, security: 0 },
+  mobile:    { math: 0.5, visual: 2, systems: 0, debug: 1, security: 0 },
+};
+const QUIZ_GOAL_BONUS = {
+  fast:     { fullstack: 2, dataeng: 1.5, mobile: 1 },
+  salary:   { aiml: 1.5, cloud: 2, dataeng: 1 },
+  startup:  { fullstack: 1.5, mobile: 2, aiml: 1 },
+  research: { aiml: 3, cybersec: 1 },
+  remote:   { fullstack: 1.5, aiml: 1, cloud: 1 },
+};
+let quizAnswers = {};
+let quizStep = 0;
+const TOTAL_STEPS = 6;
+
+function quizAnswer(q, val, el) {
+  quizAnswers[q] = val;
+  el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  setTimeout(() => quizNext(), 350);
+}
+
+function quizNext() {
+  if (quizStep >= TOTAL_STEPS - 1) { showQuizResults(); return; }
+  document.getElementById('qq' + quizStep).classList.remove('active');
+  document.getElementById('pip' + quizStep).classList.remove('active');
+  document.getElementById('pip' + quizStep).classList.add('done');
+  quizStep++;
+  document.getElementById('qq' + quizStep).classList.add('active');
+  document.getElementById('pip' + quizStep).classList.add('active');
+  document.getElementById('quizCounter').textContent = (quizStep + 1) + ' / ' + TOTAL_STEPS;
+  document.getElementById('quizPrevBtn').style.visibility = quizStep > 0 ? 'visible' : 'hidden';
+}
+
+function quizPrev() {
+  if (quizStep === 0) return;
+  document.getElementById('qq' + quizStep).classList.remove('active');
+  document.getElementById('pip' + quizStep).classList.remove('active');
+  quizStep--;
+  document.getElementById('qq' + quizStep).classList.add('active');
+  document.getElementById('pip' + quizStep).classList.remove('done');
+  document.getElementById('pip' + quizStep).classList.add('active');
+  document.getElementById('quizCounter').textContent = (quizStep + 1) + ' / ' + TOTAL_STEPS;
+  document.getElementById('quizPrevBtn').style.visibility = quizStep > 0 ? 'visible' : 'hidden';
+}
+
+function showQuizResults() {
+  // Score each spec
+  const math = quizAnswers[0] || 0;
+  const visual = quizAnswers[1] || 0;
+  const systems = quizAnswers[2] === 1 ? 2 : 0;
+  const debug = quizAnswers[3] || 0;
+  const security = quizAnswers[4] === 1 ? 2 : 0;
+  const goal = quizAnswers[5] || 'fast';
+
+  const scores = {};
+  Object.entries(QUIZ_SPEC_WEIGHTS).forEach(([id, w]) => {
+    scores[id] = w.math * math + w.visual * visual + w.systems * systems + w.debug * debug + w.security * security;
+    const bonus = QUIZ_GOAL_BONUS[goal] || {};
+    scores[id] += (bonus[id] || 0);
+  });
+
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const maxScore = sorted[0][1] || 1;
+
+  // Hide questions
+  document.querySelectorAll('.quiz-q').forEach(q => q.classList.remove('active'));
+  document.getElementById('quizNav').style.display = 'none';
+  document.getElementById('quizProgress').style.display = 'none';
+
+  const resultsEl = document.getElementById('quizResults');
+  const barsEl = document.getElementById('resultBars');
+  resultsEl.classList.add('active');
+
+  barsEl.innerHTML = sorted.slice(0, 4).map(([id, score], i) => {
+    const spec = SPECS.find(s => s.id === id);
+    const pct = Math.round((score / maxScore) * 100);
+    const cls = i === 0 ? '' : i === 1 ? 'second' : 'third';
+    return `
+      <div class="result-bar-item">
+        <div class="result-bar-top">
+          <div class="result-bar-name">${spec.icon} ${spec.name}</div>
+          <div class="result-bar-pct">${pct}% match</div>
+        </div>
+        <div class="result-bar-track">
+          <div class="result-bar-fill ${cls}" data-pct="${pct}" style="width:0%"></div>
+        </div>
+      </div>`;
+  }).join('');
+
+  setTimeout(() => {
+    document.querySelectorAll('.result-bar-fill').forEach(el => {
+      el.style.width = el.dataset.pct + '%';
+    });
+  }, 100);
+
+  const topId = sorted[0][0];
+  document.getElementById('topPickBtn').onclick = () => {
+    selectedSpec = SPECS.find(s => s.id === topId);
+    selectedLevel = null;
+    document.querySelectorAll('.level-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('continueBtn').classList.remove('ready');
+    showSection('level');
+  };
+}
+
+function restartQuiz() {
+  quizAnswers = {};
+  quizStep = 0;
+  document.querySelectorAll('.quiz-q').forEach(q => q.classList.remove('active'));
+  document.getElementById('qq0').classList.add('active');
+  document.querySelectorAll('.quiz-pip').forEach(p => p.classList.remove('done', 'active'));
+  document.getElementById('pip0').classList.add('active');
+  document.getElementById('quizNav').style.display = 'flex';
+  document.getElementById('quizProgress').style.display = 'flex';
+  document.getElementById('quizResults').classList.remove('active');
+  document.getElementById('quizCounter').textContent = '1 / 6';
+  document.getElementById('quizPrevBtn').style.visibility = 'hidden';
+  document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+}
+
+// ─────────────────────────────────────────────
+//  GOAL FILTER
+// ─────────────────────────────────────────────
+let activeGoal = 'all';
+function setGoalFilter(goal, el) {
+  activeGoal = goal;
+  document.querySelectorAll('.goal-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.spec-card').forEach(card => {
+    const id = card.dataset.id;
+    const spec = SPECS.find(s => s.id === id);
+    if (goal === 'all' || spec.goals.includes(goal)) {
+      card.classList.remove('filtered-out');
+    } else {
+      card.classList.add('filtered-out');
+    }
+  });
+}
+
+// ─────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────
+let selectedSpec = null;
+let selectedLevel = null;
+let navHistory = ['landing'];
+
+// ─────────────────────────────────────────────
+//  NAVIGATION
+// ─────────────────────────────────────────────
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+
+  const backBtn = document.getElementById('backBtn');
+  const suggestBar = document.getElementById('suggestBar');
+  const navSearch = document.getElementById('navSearch');
+
+  backBtn.classList.toggle('visible', id !== 'landing');
+  suggestBar.classList.toggle('visible', id === 'roadmap');
+  navSearch.classList.toggle('visible', id === 'roadmap');
+
+  if (navHistory[navHistory.length - 1] !== id) navHistory.push(id);
+}
+
+function goBack() {
+  if (navHistory.length > 1) {
+    navHistory.pop();
+    const prev = navHistory[navHistory.length - 1];
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(prev).classList.add('active');
+    window.scrollTo(0, 0);
+    const backBtn = document.getElementById('backBtn');
+    const suggestBar = document.getElementById('suggestBar');
+    const navSearch = document.getElementById('navSearch');
+    backBtn.classList.toggle('visible', prev !== 'landing');
+    suggestBar.classList.toggle('visible', prev === 'roadmap');
+    navSearch.classList.toggle('visible', prev === 'roadmap');
+  }
+}
+
+// ─────────────────────────────────────────────
+//  SPEC GRID
+// ─────────────────────────────────────────────
+function buildSpecGrid() {
+  const grid = document.getElementById('specGrid');
+  grid.innerHTML = SPECS.map(s => `
+    <div class="spec-card" data-id="${s.id}" onclick="selectSpec('${s.id}')">
+      <span class="spec-icon">${s.icon}</span>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <span class="demand-tag demand-${s.demand === 'high' ? 'high' : 'med'}">${s.demandLabel}</span>
+      <p class="india-note">🇮🇳 ${s.indiaNote}</p>
+      <div class="spec-salary">
+        <div class="spec-salary-title">Fresher salary bands (India)</div>
+        <div class="salary-bands">
+          <div class="salary-row">
+            <span class="salary-label">Tier-3 college, avg portfolio</span>
+            <span class="salary-value">${s.salary.tier3}</span>
+          </div>
+          <div class="salary-row">
+            <span class="salary-label">Strong portfolio / tier-2+</span>
+            <span class="salary-value">${s.salary.strong}</span>
+          </div>
+          <div class="salary-row">
+            <span class="salary-label">Exceptional candidate</span>
+            <span class="salary-value">${s.salary.exceptional}</span>
+          </div>
+        </div>
+      </div>
+      ${s.warning ? `<div class="spec-warning">⚠ ${s.warning}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function selectSpec(id) {
+  selectedSpec = SPECS.find(s => s.id === id);
+  selectedLevel = null;
+  document.querySelectorAll('.level-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('continueBtn').classList.remove('ready');
+  // Save to localStorage
+  try { localStorage.setItem('pf_spec', id); } catch(e) {}
+  showSection('level');
+}
+
+// ─────────────────────────────────────────────
+//  LEVEL
+// ─────────────────────────────────────────────
+function selectLevel(idx) {
+  selectedLevel = idx;
+  document.querySelectorAll('.level-card').forEach((c, i) => c.classList.toggle('selected', i === idx));
+  document.getElementById('continueBtn').classList.add('ready');
+  try { localStorage.setItem('pf_level', idx); } catch(e) {}
+}
+
+// ─────────────────────────────────────────────
+//  BUILD ROADMAP
+// ─────────────────────────────────────────────
+function showRoadmap() {
+  if (selectedSpec === null || selectedLevel === null) return;
+
+  const levelNames = ['Complete Beginner', 'Know Some Basics', 'Can Already Code'];
+  const topics = selectedSpec.tracks[selectedLevel] || [];
+
+  document.getElementById('breadcrumb').innerHTML =
+    `${selectedSpec.icon} ${selectedSpec.name} <span>›</span> ${levelNames[selectedLevel]}`;
+  document.getElementById('roadmapTitle').textContent = `${selectedSpec.name} Roadmap`;
+  document.getElementById('roadmapDesc').textContent =
+    `${topics.length} topics for level: ${levelNames[selectedLevel]} · India-specific, community-informed`;
+
+  const list = document.getElementById('topicsList');
+  const progressKey = `pf_progress_${selectedSpec.id}_${selectedLevel}`;
+  let completed = [];
+  try { completed = JSON.parse(localStorage.getItem(progressKey) || '[]'); } catch(e) {}
+
+  list.innerHTML = topics.map((t, i) => {
+    const diffDots = Array.from({length: 5}, (_, d) =>
+      `<div class="diff-dot${d < t.difficulty ? ' filled' : ''}"></div>`).join('');
+    const isComplete = completed.includes(i);
+    return `
+    <div class="topic-item${isComplete ? ' completed' : ''}" id="topic-${i}">
+      <div class="topic-header" onclick="toggleTopic(${i})">
+        <div class="topic-check" onclick="toggleComplete(event, ${i})" title="Mark complete">${isComplete ? '✓' : ''}</div>
+        <div class="topic-order">0${i + 1}</div>
+        <div class="topic-title-wrap">
+          <div class="topic-title">${t.title}</div>
+          <div class="topic-why">${t.why}</div>
+        </div>
+        <div class="topic-meta">
+          <span class="time-badge">⏱ ${t.timeEst.beginner}</span>
+          <div class="difficulty-dots" title="Difficulty">${diffDots}</div>
+          <span class="demand-tag demand-${t.demand === 'high' ? 'high' : 'med'}" style="margin-left:2px">
+            ${t.demand === 'high' ? '🔥' : '📈'}
+          </span>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="topic-body">
+        <div class="topic-section-label">Key Subtopics (${t.subtopics.length})</div>
+        <div class="subtopics-grid">
+          ${t.subtopics.map(st => `<div class="subtopic-pill">${st}</div>`).join('')}
+        </div>
+        <div class="topic-section-label">Practice Projects</div>
+        <div class="projects-grid">
+          ${t.projects.map(p => `<div class="project-pill">${p}</div>`).join('')}
+        </div>
+        <div class="topic-section-label">Free Resources</div>
+        <div class="resources-row">
+          ${t.resources.map(r => `<a class="resource-link" href="${r.url}" target="_blank" rel="noopener">↗ ${r.name}</a>`).join('')}
+        </div>
+        <button class="evidence-toggle" onclick="toggleEvidence(${i})" id="evBtn-${i}">📊 Why this recommendation? (community data)</button>
+        <div class="evidence-panel" id="evPanel-${i}">
+          <div class="ev-title">Community-sourced evidence</div>
+          <div class="ev-stat-row">
+            ${t.evidence.stats.map(s => `
+              <div class="ev-stat">
+                <div class="ev-stat-label"><span>${s.label}</span><span style="color:var(--accent)">${s.pct}%</span></div>
+                <div class="ev-stat-bar"><div class="ev-stat-fill" style="width:${s.pct}%"></div></div>
+              </div>`).join('')}
+          </div>
+          <div class="ev-sources">
+            ${t.evidence.sources.map(src => `<div class="ev-source">📌 ${src}</div>`).join('')}
+          </div>
+        </div>
+        <div class="community-box">
+          <p>"${t.community}"</p>
+          <div class="source">${t.commSource}</div>
+          <div class="src-note">Note: ${t.commNote}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  updateProgress();
+  showSection('roadmap');
+}
+
+function toggleTopic(i) {
+  document.getElementById(`topic-${i}`).classList.toggle('open');
+}
+
+function toggleEvidence(i) {
+  const panel = document.getElementById(`evPanel-${i}`);
+  const btn = document.getElementById(`evBtn-${i}`);
+  panel.classList.toggle('open');
+  btn.textContent = panel.classList.contains('open')
+    ? '▲ Hide community data'
+    : '📊 Why this recommendation? (community data)';
+}
+
+// ─────────────────────────────────────────────
+//  PROGRESS TRACKING
+// ─────────────────────────────────────────────
+function toggleComplete(event, i) {
+  event.stopPropagation();
+  if (!selectedSpec || selectedLevel === null) return;
+  const progressKey = `pf_progress_${selectedSpec.id}_${selectedLevel}`;
+  let completed = [];
+  try { completed = JSON.parse(localStorage.getItem(progressKey) || '[]'); } catch(e) {}
+  const idx = completed.indexOf(i);
+  if (idx > -1) { completed.splice(idx, 1); } else { completed.push(i); }
+  try { localStorage.setItem(progressKey, JSON.stringify(completed)); } catch(e) {}
+
+  const el = document.getElementById(`topic-${i}`);
+  const check = el.querySelector('.topic-check');
+  if (completed.includes(i)) {
+    el.classList.add('completed');
+    check.textContent = '✓';
+  } else {
+    el.classList.remove('completed');
+    check.textContent = '';
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  if (!selectedSpec || selectedLevel === null) return;
+  const progressKey = `pf_progress_${selectedSpec.id}_${selectedLevel}`;
+  let completed = [];
+  try { completed = JSON.parse(localStorage.getItem(progressKey) || '[]'); } catch(e) {}
+  const topics = selectedSpec.tracks[selectedLevel] || [];
+  const total = topics.length;
+  const done = completed.length;
+  document.getElementById('progressText').textContent = `${done} / ${total} completed`;
+  document.getElementById('progressFill').style.width = total > 0 ? (done / total * 100) + '%' : '0%';
+}
+
+function clearProgress() {
+  if (!selectedSpec || selectedLevel === null) return;
+  if (!confirm('Reset your progress for this roadmap?')) return;
+  const progressKey = `pf_progress_${selectedSpec.id}_${selectedLevel}`;
+  try { localStorage.removeItem(progressKey); } catch(e) {}
+  document.querySelectorAll('.topic-item').forEach(el => {
+    el.classList.remove('completed');
+    el.querySelector('.topic-check').textContent = '';
+  });
+  updateProgress();
+}
+
+// ─────────────────────────────────────────────
+//  SEARCH
+// ─────────────────────────────────────────────
+function filterTopics(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.topic-item').forEach((el, i) => {
+    if (!selectedSpec || selectedLevel === null) return;
+    const topic = selectedSpec.tracks[selectedLevel][i];
+    if (!topic) return;
+    const searchable = (topic.title + topic.why + topic.subtopics.join(' ')).toLowerCase();
+    el.classList.toggle('search-hidden', q.length > 0 && !searchable.includes(q));
+  });
+}
+
+// ─────────────────────────────────────────────
+//  RESTORE FROM LOCALSTORAGE
+// ─────────────────────────────────────────────
+function restoreSession() {
+  try {
+    const specId = localStorage.getItem('pf_spec');
+    const levelIdx = localStorage.getItem('pf_level');
+    if (specId) {
+      selectedSpec = SPECS.find(s => s.id === specId);
+    }
+    if (levelIdx !== null) {
+      selectedLevel = parseInt(levelIdx);
+    }
+  } catch(e) {}
+}
+
+// ─────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────
+buildSpecGrid();
+restoreSession();
+</script>
+</body>
+</html>
